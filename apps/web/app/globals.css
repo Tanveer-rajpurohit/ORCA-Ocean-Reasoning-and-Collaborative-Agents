@@ -1,26 +1,152 @@
 @import "tailwindcss";
 @import "@repo/tailwind-config";
 
-:root {
-  --foreground-rgb: 0, 0, 0;
-  --background-start-rgb: 214, 219, 220;
-  --background-end-rgb: 255, 255, 255;
+.font-intert {
+  font-family: var(--font-inter-tight), "Inter Tight", "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --foreground-rgb: 255, 255, 255;
-    --background-start-rgb: 0, 0, 0;
-    --background-end-rgb: 0, 0, 0;
-  }
+.font-mono {
+  font-family: var(--font-mono), "JetBrains Mono", ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+}
+
+.font-instrument {
+  font-family: var(--font-instrument), "Instrument Serif", Georgia, Cambria, "Times New Roman", serif;
+}
+
+:root {
+  --bg: #F6F8FB;
+  --surface: #FFFFFF;
+  --surface-muted: #EEF2F6;
+  --text-primary: #0F172A;
+  --text-secondary: #475569;
+  --text-muted: #8896AB;
+  --border: #E2E8F0;
+  --border-subtle: #EDF2F7;
+  --accent: #0F172A;
+  --brand: #3B76E1;
+  --brand-2: #6293F2;
+  --brand-hover: #2E62C8;
+  --brand-subtle: rgba(59, 118, 225, 0.09);
+  --brand-gradient: linear-gradient(135deg, var(--brand), var(--brand-2));
+  --success: #16A34A;
+  --warning: #D97706;
+  --danger: #DC2626;
+  --loader-track: #E2E8F0;
+  --loader-fill: #94A3B8;
+}
+
+.brand-glow {
+  position: relative;
+  isolation: isolate;
+  overflow-x: clip;
+}
+
+.brand-glow::before {
+  content: "";
+  position: absolute;
+  inset: -8% 0 auto 0;
+  width: 100%;
+  height: 460px;
+  background: radial-gradient(65% 60% at 50% 0%, var(--brand-subtle), transparent 72%);
+  pointer-events: none;
+  z-index: -1;
+}
+
+.text-gradient-brand {
+  background: var(--brand-gradient);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+.btn-brand-solid {
+  background-color: var(--brand);
+  color: #ffffff;
+  transition: background-color 0.2s ease, transform 0.15s ease;
+}
+
+.btn-brand-solid:hover {
+  background-color: var(--brand-hover);
+}
+
+.btn-brand-solid:active {
+  transform: scale(0.97);
+}
+
+.link-brand {
+  color: var(--brand);
+  transition: color 0.15s ease;
+}
+
+.link-brand:hover {
+  color: var(--brand-hover);
+}
+
+html.lenis, html.lenis body {
+  height: auto;
+}
+
+.lenis.lenis-smooth {
+  scroll-behavior: auto !important;
+}
+
+.lenis.lenis-smooth [data-lenis-prevent] {
+  overscroll-behavior: contain;
+}
+
+.lenis.lenis-stopped {
+  overflow: hidden;
+}
+
+body,
+header,
+nav,
+main,
+footer,
+section,
+button,
+aside {
+  transition: background-color 0.3s ease, border-color 0.3s ease, color 0.3s ease;
+}
+
+html,
+body {
+  overflow-x: clip;
 }
 
 body {
-  color: rgb(var(--foreground-rgb));
-  background: linear-gradient(
-      to bottom,
-      transparent,
-      rgb(var(--background-end-rgb))
-    )
-    rgb(var(--background-start-rgb));
+  background-color: var(--bg);
+  color: var(--text-primary);
+}
+
+::-webkit-scrollbar {
+  width: 5px;
+  height: 5px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: var(--border);
+  border-radius: 9999px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background-color: var(--text-muted);
+}
+
+* {
+  scrollbar-width: thin;
+  scrollbar-color: var(--border) transparent;
+}
+
+.hide-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+.hide-scrollbar::-webkit-scrollbar {
+  display: none;
 }
