@@ -5,6 +5,7 @@ import HeroSection from "./HeroSection";
 import InfoSection from "./InfoSection";
 import FeatureCarousel from "./FeatureCarousel";
 import SocialProofSection from "./SocialProofSection";
+import ProjectCapabilitiesSection from "./ProjectCapabilitiesSection";
 import PricingSection from "./PricingSection";
 import FAQSection from "./FAQSection";
 import CTASection from "./CTASection";
@@ -52,6 +53,7 @@ export default function LandingPage() {
         onCardClick={handleCardClick}
       />
       <SocialProofSection />
+      <ProjectCapabilitiesSection />
       <PricingSection />
       <FAQSection />
       <CTASection />
