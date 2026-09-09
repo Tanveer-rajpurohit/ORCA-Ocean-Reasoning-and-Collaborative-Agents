@@ -5,17 +5,17 @@ import { useLocalStorageState } from "../../../../hooks";
 
 const LANGUAGE_OPTIONS = [
   { id: "auto", name: "Auto Detect", hint: "From your speech or typing" },
-  { id: "ta", name: "Tamil", hint: "தமிழ்" },
-  { id: "te", name: "Telugu", hint: "తెలుగు" },
-  { id: "ml", name: "Malayalam", hint: "മലയാളം" },
-  { id: "mr", name: "Marathi", hint: "मराठी" },
+  { id: "en", name: "English", hint: "English" },
+  { id: "hi", name: "Hindi", hint: "हिन्दी" },
+  { id: "bn", name: "Bengali", hint: "বাংলা" },
+  { id: "gu", name: "Gujarati", hint: "ગુજરાતી" },
   { id: "kn", name: "Kannada", hint: "ಕನ್ನಡ" },
   { id: "gom", name: "Konkani", hint: "कोंकणी" },
-  { id: "gu", name: "Gujarati", hint: "ગુજરાતી" },
-  { id: "bn", name: "Bengali", hint: "বাংলা" },
+  { id: "ml", name: "Malayalam", hint: "മലയാളം" },
+  { id: "mr", name: "Marathi", hint: "मराठी" },
   { id: "or", name: "Odia", hint: "ଓଡ଼ିଆ" },
-  { id: "hi", name: "Hindi", hint: "हिन्दी" },
-  { id: "en", name: "English", hint: "English" },
+  { id: "ta", name: "Tamil", hint: "தமிழ்" },
+  { id: "te", name: "Telugu", hint: "తెలుగు" },
 ];
 
 const STORAGE_KEY = "orca_language";

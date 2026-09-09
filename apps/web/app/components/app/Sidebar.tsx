@@ -6,13 +6,14 @@ import { usePathname } from "next/navigation";
 import {
   Bot,
   Map,
-  Newspaper,
-  TriangleAlert,
-  Megaphone,
-  ScrollText,
+  Compass,
+  CloudLightning,
+  CloudSun,
+  FileClock,
   SlidersHorizontal,
   Plus,
-  ChevronsLeft,
+  PanelLeftClose,
+  PanelLeftOpen,
   Menu,
   X,
 } from "lucide-react";
@@ -31,10 +32,10 @@ interface NavItem {
 const NAV_ITEMS: NavItem[] = [
   { href: "/chat", label: "Chat", icon: Bot },
   { href: "/map", label: "Sea Map", icon: Map },
-  { href: "/advisories", label: "Advisories", icon: Newspaper },
-  { href: "/hazards", label: "Hazards", icon: TriangleAlert },
-  { href: "/report", label: "Report", icon: Megaphone },
-  { href: "/audit-log", label: "Audit Log", icon: ScrollText },
+  { href: "/advisories", label: "Advisories", icon: Compass },
+  { href: "/hazards", label: "Hazards", icon: CloudLightning },
+  { href: "/report", label: "Report", icon: CloudSun },
+  { href: "/audit-log", label: "Audit Log", icon: FileClock },
   { href: "/settings", label: "Settings", icon: SlidersHorizontal },
 ];
 
@@ -56,7 +57,8 @@ export function Sidebar({ children }: SidebarProps) {
   const displayEmail = user?.email || "";
   const initials = displayName
     .split(" ")
-    .map((n: string) => n[0])
+    .map((n: string) => n.charAt(0))
+    .filter(Boolean)
     .join("")
     .slice(0, 2)
     .toUpperCase();
@@ -74,45 +76,48 @@ export function Sidebar({ children }: SidebarProps) {
 
       <aside
         className={`fixed inset-y-0 left-0 z-50 flex flex-col bg-surface border-r border-border md:relative md:z-auto transition-[width,transform] duration-300 ease-[cubic-bezier(0.2,0,0,1)] w-64 md:translate-x-0 ${
-          collapsed ? "md:w-[68px]" : "md:w-60"
+          collapsed ? "md:w-17" : "md:w-60"
         } ${mobileOpen ? "translate-x-0 shadow-2xl" : "-translate-x-full"}`}
       >
         <div className="flex items-center h-14 shrink-0 px-3.5 justify-between border-b border-border">
-          <div
-            className={`overflow-hidden transition-all duration-300 whitespace-nowrap ${
-              collapsed ? "md:w-0 md:opacity-0" : "w-auto opacity-100"
+          <Link
+            href="/chat"
+            onClick={() => setMobileOpen(false)}
+            className={`flex items-center gap-2 text-primary font-instrument italic text-xl tracking-tight ${
+              collapsed ? "md:hidden" : ""
             }`}
           >
-            <Link
-              href="/chat"
-              onClick={() => setMobileOpen(false)}
-              className="flex items-center gap-2 text-primary font-instrument italic text-xl tracking-tight"
-            >
-              <AgentOrb size={18} className="not-italic text-brand shrink-0" />
-              <span>ORCA</span>
-            </Link>
-          </div>
-
-          {collapsed && (
-            <button
-              type="button"
-              onClick={() => setCollapsed(false)}
-              className="hidden md:flex items-center justify-center mx-auto text-brand hover:opacity-80 transition-opacity cursor-pointer"
-              title="Expand Sidebar"
-            >
-              <AgentOrb size={20} />
-            </button>
-          )}
+            <AgentOrb size={18} className="not-italic text-brand shrink-0" />
+            <span>ORCA</span>
+          </Link>
 
           <button
             type="button"
-            aria-label={collapsed ? "Expand sidebar" : "Collapse sidebar"}
-            onClick={() => setCollapsed(!collapsed)}
-            className={`hidden md:flex items-center justify-center w-8 h-8 rounded-lg text-muted hover:text-primary hover:bg-surface-muted transition-colors ${
-              collapsed ? "hidden" : ""
+            aria-label="Expand sidebar"
+            onClick={() => setCollapsed(false)}
+            className={`group/orb relative hidden items-center justify-center w-9 h-9 rounded-xl text-muted hover:text-primary hover:bg-surface-muted transition-colors cursor-pointer ${
+              collapsed ? "md:flex md:mx-auto" : "md:hidden"
             }`}
           >
-            <ChevronsLeft size={16} />
+            <AgentOrb
+              size={20}
+              className="text-brand absolute transition-all duration-200 group-hover/orb:opacity-0 group-hover/orb:scale-75"
+            />
+            <PanelLeftOpen
+              size={16}
+              className="absolute transition-all duration-200 opacity-0 scale-75 group-hover/orb:opacity-100 group-hover/orb:scale-100"
+            />
+          </button>
+
+          <button
+            type="button"
+            aria-label="Collapse sidebar"
+            onClick={() => setCollapsed(true)}
+            className={`hidden md:flex items-center justify-center w-8 h-8 rounded-lg text-muted hover:text-primary hover:bg-surface-muted transition-colors cursor-pointer ${
+              collapsed ? "md:hidden" : ""
+            }`}
+          >
+            <PanelLeftClose size={16} />
           </button>
 
           <button
@@ -134,7 +139,7 @@ export function Sidebar({ children }: SidebarProps) {
             }}
             className={`flex items-center btn-brand-solid rounded-xl text-sm font-medium font-intert transition-all duration-300 ${
               collapsed
-                ? "md:w-10 md:h-10 md:justify-center md:mx-auto w-full px-3 py-2.5 gap-2"
+                ? "w-full px-3 py-2.5 gap-2 md:w-10 md:h-10 md:justify-center md:mx-auto"
                 : "w-full px-3 py-2.5 gap-2"
             }`}
           >
@@ -142,7 +147,7 @@ export function Sidebar({ children }: SidebarProps) {
             <span
               className={`overflow-hidden whitespace-nowrap transition-all duration-300 ${
                 collapsed
-                  ? "md:w-0 md:opacity-0 md:hidden"
+                  ? "w-auto opacity-100 md:w-0 md:opacity-0 md:hidden"
                   : "w-auto opacity-100"
               }`}
             >
@@ -164,7 +169,7 @@ export function Sidebar({ children }: SidebarProps) {
                 title={collapsed ? item.label : undefined}
                 className={`flex items-center rounded-xl text-[13px] font-medium font-intert transition-all duration-200 ${
                   collapsed
-                    ? "md:w-10 md:h-10 md:justify-center md:mx-auto w-full px-3 py-2 gap-2.5"
+                    ? "w-full px-3 py-2 gap-2.5 md:w-10 md:h-10 md:justify-center md:mx-auto"
                     : "w-full px-3 py-2 gap-2.5"
                 } ${
                   isActive
@@ -176,7 +181,7 @@ export function Sidebar({ children }: SidebarProps) {
                 <span
                   className={`overflow-hidden whitespace-nowrap transition-all duration-300 ${
                     collapsed
-                      ? "md:w-0 md:opacity-0 md:hidden"
+                      ? "w-auto opacity-100 md:w-0 md:opacity-0 md:hidden"
                       : "w-auto opacity-100"
                   }`}
                 >
@@ -201,7 +206,7 @@ export function Sidebar({ children }: SidebarProps) {
             <div
               className={`overflow-hidden whitespace-nowrap transition-all duration-300 ${
                 collapsed
-                  ? "md:w-0 md:opacity-0 md:hidden"
+                  ? "w-auto opacity-100 flex-1 min-w-0 md:w-0 md:opacity-0 md:hidden"
                   : "w-auto opacity-100 flex-1 min-w-0"
               }`}
             >
