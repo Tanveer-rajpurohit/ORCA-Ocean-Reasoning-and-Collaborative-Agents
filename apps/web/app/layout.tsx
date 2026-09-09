@@ -2,6 +2,7 @@ import "@repo/ui/styles.css";
 import "./globals.css";
 import type { Metadata } from "next";
 import { interTight, fontMono, instrumentSerif } from "./fonts";
+import { AuthProvider } from "../context/AuthContext";
 
 export const metadata: Metadata = {
   title: {
@@ -23,7 +24,9 @@ export default function RootLayout({
       suppressHydrationWarning
       className={`${interTight.variable} ${fontMono.variable} ${instrumentSerif.variable}`}
     >
-      <body className="font-intert antialiased">{children}</body>
+      <body className="font-intert antialiased">
+        <AuthProvider>{children}</AuthProvider>
+      </body>
     </html>
   );
 }
