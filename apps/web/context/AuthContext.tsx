@@ -4,9 +4,9 @@ import React, {
   createContext,
   useCallback,
   useContext,
-  useEffect,
   useState,
 } from "react";
+import { useLocalStorageState } from "../hooks";
 
 export interface User {
   id: string;
@@ -40,67 +40,83 @@ const AuthContext = createContext<AuthContextValue | null>(null);
 
 const STORAGE_KEY = "orca_user";
 
+const DEMO_USER: User = {
+  id: "demo",
+  full_name: "Tanveer Singh",
+  email: "tanveer@orca.in",
+};
+
+type StoredUser = User | "signed-out";
+
 const wait = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms));
 
+function nameFromEmail(email: string): string {
+  return (
+    (email.split("@")[0] ?? "")
+      .split(/[._-]+/)
+      .filter(Boolean)
+      .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
+      .join(" ") || "Fisher"
+  );
+}
+
 export function AuthProvider({ children }: { children: React.ReactNode }) {
-  const [user, setUser] = useState<User | null>(null);
+  const [storedUser, setStoredUser] = useLocalStorageState<StoredUser>(
+    STORAGE_KEY,
+    DEMO_USER,
+  );
   const [isLoggingIn, setIsLoggingIn] = useState(false);
   const [isRegistering, setIsRegistering] = useState(false);
   const [isGoogleAuthenticating, setIsGoogleAuthenticating] = useState(false);
 
-  useEffect(() => {
-    try {
-      const stored = window.localStorage.getItem(STORAGE_KEY);
-      if (stored) {
-        setUser(JSON.parse(stored) as User);
+  const user = storedUser === "signed-out" ? null : storedUser;
+
+  const setUser = useCallback(
+    (next: User | null) => {
+      setStoredUser(next ?? "signed-out");
+    },
+    [setStoredUser],
+  );
+
+  const login = useCallback(
+    async ({ email }: LoginInput) => {
+      setIsLoggingIn(true);
+      try {
+        await wait(700);
+        setUser({
+          id: crypto.randomUUID(),
+          full_name: nameFromEmail(email),
+          email,
+        });
+      } finally {
+        setIsLoggingIn(false);
       }
-    } catch {
-      window.localStorage.removeItem(STORAGE_KEY);
-    }
-  }, []);
+    },
+    [setUser],
+  );
 
-  const persist = (next: User | null) => {
-    setUser(next);
-    if (next) {
-      window.localStorage.setItem(STORAGE_KEY, JSON.stringify(next));
-    } else {
-      window.localStorage.removeItem(STORAGE_KEY);
-    }
-  };
-
-  const login = useCallback(async ({ email }: LoginInput) => {
-    setIsLoggingIn(true);
-    try {
-      await wait(700);
-      persist({
-        id: crypto.randomUUID(),
-        full_name: email.split("@")[0] || "Fisher",
-        email,
-      });
-    } finally {
-      setIsLoggingIn(false);
-    }
-  }, []);
-
-  const register = useCallback(async (input: RegisterInput) => {
-    setIsRegistering(true);
-    try {
-      await wait(700);
-      persist({
-        id: crypto.randomUUID(),
-        full_name: input.full_name,
-        email: input.email,
-      });
-    } finally {
-      setIsRegistering(false);
-    }
-  }, []);
+  const register = useCallback(
+    async (input: RegisterInput) => {
+      setIsRegistering(true);
+      try {
+        await wait(700);
+        setUser({
+          id: crypto.randomUUID(),
+          full_name: input.full_name,
+          email: input.email,
+        });
+      } finally {
+        setIsRegistering(false);
+      }
+    },
+    [setUser],
+  );
 
   const googleAuth = useCallback(async () => {
     setIsGoogleAuthenticating(true);
     try {
       await wait(700);
-      persist({
+      setUser({
         id: crypto.randomUUID(),
         full_name: "Google User",
         email: "user@gmail.com",
@@ -108,9 +124,9 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     } finally {
       setIsGoogleAuthenticating(false);
     }
-  }, []);
+  }, [setUser]);
 
-  const logout = useCallback(() => persist(null), []);
+  const logout = useCallback(() => setUser(null), [setUser]);
 
   return (
     <AuthContext.Provider
