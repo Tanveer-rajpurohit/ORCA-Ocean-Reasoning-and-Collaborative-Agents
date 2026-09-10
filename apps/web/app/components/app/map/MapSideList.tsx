@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { ArrowRight, ArrowUpRight } from "lucide-react";
+import { ArrowRight } from "lucide-react";
 import type { MapDataMode } from "../../../../types";
 
 interface SideRow {
@@ -12,18 +12,8 @@ interface SideRow {
 }
 
 const ROWS: SideRow[] = [
-  {
-    mode: "waves",
-    label: "Waves",
-    value: "1.4 m",
-    hint: "Slight",
-  },
-  {
-    mode: "wind",
-    label: "Wind",
-    value: "12 km/h",
-    hint: "North-west",
-  },
+  { mode: "waves", label: "Waves", value: "1.4 m", hint: "Slight" },
+  { mode: "wind", label: "Wind", value: "12 km/h", hint: "North-west" },
   {
     mode: "temperature",
     label: "Sea warmth",
@@ -38,6 +28,12 @@ const ROWS: SideRow[] = [
   },
 ];
 
+const OTHER_DATA = [
+  { label: "Boundary", value: "Inside Indian waters" },
+  { label: "Home port", value: "Kochi" },
+  { label: "Your boat", value: "75.86°E, 9.72°N" },
+];
+
 interface MapSideListProps {
   mode: MapDataMode;
   onChangeMode: (mode: MapDataMode) => void;
@@ -45,12 +41,12 @@ interface MapSideListProps {
 
 export function MapSideList({ mode, onChangeMode }: MapSideListProps) {
   return (
-    <div className="flex flex-col gap-4 h-full min-h-0">
-      <div className="shrink-0">
-        <p className="text-[10px] font-semibold tracking-[0.16em] uppercase text-muted">
+    <div className="flex flex-col h-full min-h-0 overflow-y-auto">
+      <div className="pb-5 border-b border-border">
+        <p className="font-mono text-[10px] uppercase tracking-[0.18em] text-muted">
           Right now
         </p>
-        <p className="font-instrument text-4xl text-primary leading-none tracking-tight mt-2">
+        <p className="font-instrument text-4xl text-primary leading-none tracking-tight mt-2.5">
           1.4
           <span className="text-lg text-muted ml-1">m</span>
         </p>
@@ -59,8 +55,8 @@ export function MapSideList({ mode, onChangeMode }: MapSideListProps) {
         </p>
       </div>
 
-      <div className="rounded-xl border border-border bg-surface overflow-hidden">
-        {ROWS.map((row) => {
+      <div className="border-b border-border">
+        {ROWS.map((row, index) => {
           const isActive = row.mode === mode;
           return (
             <button
@@ -68,15 +64,27 @@ export function MapSideList({ mode, onChangeMode }: MapSideListProps) {
               type="button"
               onClick={() => onChangeMode(row.mode)}
               aria-pressed={isActive}
-              className={`w-full flex items-center gap-3 px-3.5 py-3 text-left border-b border-border last:border-0 transition-colors cursor-pointer ${
-                isActive ? "bg-brand/5" : "hover:bg-surface-muted/60"
+              className={`group w-full flex items-center gap-3 py-3.5 text-left border-b border-border last:border-0 transition-colors cursor-pointer ${
+                isActive ? "bg-brand/[0.04]" : "hover:bg-surface"
               }`}
             >
+              <span
+                className={`font-mono text-lg tracking-[-0.06em] w-7 shrink-0 transition-colors duration-200 ${
+                  isActive
+                    ? "text-brand/50"
+                    : "text-border group-hover:text-brand/35"
+                }`}
+              >
+                {String(index + 1).padStart(2, "0")}
+              </span>
+
               <span className="min-w-0 flex-1">
                 <span
                   className={`block text-[12.5px] ${
-                    isActive ? "text-brand font-medium" : "text-primary"
-                  }`}
+                    isActive
+                      ? "text-brand font-medium"
+                      : "text-primary group-hover:text-brand"
+                  } transition-colors`}
                 >
                   {row.label}
                 </span>
@@ -91,8 +99,10 @@ export function MapSideList({ mode, onChangeMode }: MapSideListProps) {
 
               <ArrowRight
                 size={13}
-                className={`shrink-0 ${
-                  isActive ? "text-brand" : "text-muted"
+                className={`shrink-0 transition-colors ${
+                  isActive
+                    ? "text-brand"
+                    : "text-muted group-hover:text-brand"
                 }`}
               />
             </button>
@@ -100,37 +110,33 @@ export function MapSideList({ mode, onChangeMode }: MapSideListProps) {
         })}
       </div>
 
-      <div className="rounded-xl border border-border bg-surface overflow-hidden">
-        <p className="px-3.5 pt-3 pb-2 text-[10px] font-semibold tracking-[0.16em] uppercase text-muted">
+      <div className="pt-4 pb-5">
+        <p className="font-mono text-[10px] uppercase tracking-[0.18em] text-muted mb-3">
           Other data
         </p>
-
-        <div className="px-3.5 pb-3 space-y-2">
-          <div className="flex items-baseline justify-between gap-3">
-            <span className="text-[11.5px] text-secondary">Boundary</span>
-            <span className="text-[11.5px] text-primary font-medium">
-              Inside Indian waters
-            </span>
-          </div>
-          <div className="flex items-baseline justify-between gap-3">
-            <span className="text-[11.5px] text-secondary">Home port</span>
-            <span className="text-[11.5px] text-primary font-medium">Kochi</span>
-          </div>
-          <div className="flex items-baseline justify-between gap-3">
-            <span className="text-[11.5px] text-secondary">Your boat</span>
-            <span className="text-[11.5px] text-primary font-medium">
-              75.86°E, 9.72°N
-            </span>
-          </div>
+        <div className="space-y-2">
+          {OTHER_DATA.map((row) => (
+            <div
+              key={row.label}
+              className="flex items-baseline justify-between gap-3"
+            >
+              <span className="text-[11.5px] text-muted font-intert">
+                {row.label}
+              </span>
+              <span className="text-[11.5px] text-secondary font-intert text-right">
+                {row.value}
+              </span>
+            </div>
+          ))}
         </div>
       </div>
 
       <Link
         href="/chat"
-        className="mt-auto shrink-0 flex items-center justify-between gap-2 px-3.5 py-2.5 rounded-xl btn-brand-solid text-xs font-medium"
+        className="mt-auto shrink-0 flex items-center justify-between gap-2 px-3.5 py-2.5 rounded-lg border border-border bg-surface text-xs font-intert font-medium text-secondary hover:text-brand hover:border-brand/40 transition-colors"
       >
         <span>Ask ORCA about this map</span>
-        <ArrowUpRight size={13} />
+        <ArrowRight size={13} />
       </Link>
     </div>
   );

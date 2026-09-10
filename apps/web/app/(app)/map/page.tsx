@@ -42,7 +42,7 @@ export default function MapPage() {
 
   return (
     <div className="flex flex-col h-full overflow-hidden">
-      <div className="shrink-0 px-6 sm:px-10 lg:px-16 pt-8 sm:pt-10 pb-6">
+      <div className="shrink-0 px-6 sm:px-10 lg:px-16 pt-6 sm:pt-8 pb-4">
         <h1 className="text-2xl sm:text-3xl font-instrument text-primary tracking-tight">
           Sea map
         </h1>
@@ -51,8 +51,8 @@ export default function MapPage() {
         </p>
       </div>
 
-      <div className="flex-1 min-h-0 px-6 sm:px-10 lg:px-16 pb-8">
-        <div className="grid grid-cols-1 lg:grid-cols-[270px_minmax(0,1fr)] gap-4 h-full min-h-0">
+      <div className="flex-1 min-h-0 px-6 sm:px-10 lg:px-16 pb-6">
+        <div className="grid grid-cols-1 lg:grid-cols-[260px_minmax(0,1fr)] gap-5 h-full min-h-0">
           <div className="hidden lg:flex min-h-0">
             <div className="w-full">
               <MapSideList mode={mode} onChangeMode={setMode} />
