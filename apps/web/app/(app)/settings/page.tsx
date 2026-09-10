@@ -27,7 +27,7 @@ export default function SettingsPage() {
             Settings
           </h1>
           <p className="text-sm text-muted mt-1">
-            Language, hazard alerts, and your session.
+            Language, voice, agent behaviour, and hazard alerts.
           </p>
         </div>
 

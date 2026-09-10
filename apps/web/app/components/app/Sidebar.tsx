@@ -254,8 +254,8 @@ export function Sidebar({ children }: SidebarProps) {
           <Link
             href="/profile"
             onClick={() => setMobileOpen(false)}
-            className={`flex items-center gap-2.5 p-2 rounded-xl bg-surface-muted hover:bg-border/40 transition-all duration-300 ${
-              collapsed ? "md:justify-center md:p-1.5" : ""
+            className={`flex items-center gap-2.5 p-1.5 rounded-xl hover:bg-surface-muted transition-all duration-300 ${
+              collapsed ? "md:justify-center" : ""
             }`}
           >
             <div className="w-8 h-8 rounded-full bg-brand/10 text-brand flex items-center justify-center font-medium font-intert text-xs shrink-0 overflow-hidden">

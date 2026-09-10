@@ -19,11 +19,9 @@ export function VoiceSection() {
   return (
     <section className="rounded-2xl border border-border bg-surface p-6 font-intert">
       <div className="mb-5">
-        <h2 className="text-base font-medium text-primary">
-          Voice &amp; Audio Output
-        </h2>
+        <h2 className="text-base font-medium text-primary">Voice</h2>
         <p className="text-xs text-muted mt-0.5">
-          Choose the voice ORCA speaks advisories in. Tap preview to hear it
+          Which voice ORCA speaks advisories with. Tap preview to hear it
           before you decide.
         </p>
       </div>
@@ -109,12 +107,6 @@ export function VoiceSection() {
           );
         })}
       </div>
-
-      <p className="text-[11px] text-muted mt-4 leading-relaxed">
-        Odia and Konkani have no neural voice available yet. ORCA falls back to
-        Indian English for those languages and labels the response as a
-        fallback rather than speaking the wrong language.
-      </p>
     </section>
   );
 }

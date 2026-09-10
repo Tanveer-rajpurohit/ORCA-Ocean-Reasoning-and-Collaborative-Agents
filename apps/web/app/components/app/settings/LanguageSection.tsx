@@ -32,17 +32,15 @@ export function LanguageSection() {
       <div className="mb-4 flex items-center justify-between">
         <div>
           <div className="flex items-center gap-2">
-            <h2 className="text-base font-medium text-primary">
-              Language &amp; Voice
-            </h2>
-            <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full bg-brand/10 text-brand text-[10px] font-medium border border-brand/20">
+            <h2 className="text-base font-medium text-primary">Language</h2>
+            <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full bg-ocean/10 text-ocean text-[10px] font-medium border border-ocean/20">
               <Languages size={10} />
-              Sarvam AI
+              Auto Detect
             </span>
           </div>
           <p className="text-xs text-muted mt-0.5">
-            The language ORCA answers and speaks in. Auto Detect matches
-            whatever you say or type.
+            The language ORCA answers in. Auto Detect matches whatever you say
+            or type.
           </p>
         </div>
       </div>
