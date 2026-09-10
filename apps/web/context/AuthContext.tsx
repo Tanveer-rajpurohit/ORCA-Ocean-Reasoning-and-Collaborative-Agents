@@ -7,23 +7,7 @@ import React, {
   useState,
 } from "react";
 import { useLocalStorageState } from "../hooks";
-
-export interface User {
-  id: string;
-  full_name: string;
-  email: string;
-}
-
-interface LoginInput {
-  email: string;
-  password: string;
-}
-
-interface RegisterInput {
-  full_name: string;
-  email: string;
-  password: string;
-}
+import type { User, LoginInput, RegisterInput } from "../types";
 
 interface AuthContextValue {
   user: User | null;

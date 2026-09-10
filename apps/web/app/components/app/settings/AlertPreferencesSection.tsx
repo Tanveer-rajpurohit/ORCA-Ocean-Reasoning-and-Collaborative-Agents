@@ -2,8 +2,13 @@
 
 import { useState } from "react";
 import { Check, TriangleAlert, Wind, MapPin, Newspaper } from "lucide-react";
+import type { AlertPreference } from "../../../../types";
 
-const ALERT_ROWS = [
+interface AlertRow extends AlertPreference {
+  icon: typeof TriangleAlert;
+}
+
+const ALERT_ROWS: AlertRow[] = [
   {
     id: "cyclone",
     icon: TriangleAlert,

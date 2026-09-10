@@ -18,7 +18,12 @@
     "lucide-react": "^1.41.0",
     "next": "16.3.1",
     "react": "19.2.8",
-    "react-dom": "19.2.8"
+    "react-dom": "19.2.8",
+    "react-markdown": "^10.1.0",
+    "recharts": "^3.10.1",
+    "remark-gfm": "^4.0.1",
+    "thinking-orbs": "^0.3.1",
+    "zustand": "^5.0.15"
   },
   "devDependencies": {
     "@next/eslint-plugin-next": "16.3.1",

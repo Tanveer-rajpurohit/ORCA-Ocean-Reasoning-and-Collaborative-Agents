@@ -2,8 +2,9 @@
 
 import { Languages, Check } from "lucide-react";
 import { useLocalStorageState } from "../../../../hooks";
+import type { LanguageOption } from "../../../../types";
 
-const LANGUAGE_OPTIONS = [
+const LANGUAGE_OPTIONS: LanguageOption[] = [
   { id: "auto", name: "Auto Detect", hint: "From your speech or typing" },
   { id: "en", name: "English", hint: "English" },
   { id: "hi", name: "Hindi", hint: "हिन्दी" },

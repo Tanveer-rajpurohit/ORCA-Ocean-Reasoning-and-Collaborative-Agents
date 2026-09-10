@@ -18,9 +18,11 @@ import {
   X,
 } from "lucide-react";
 import { AgentOrb } from "../AgentOrb";
+import { ChatSessionItem } from "./chat";
 import { useAuth } from "../../../context/AuthContext";
 import { useLocalStorageState } from "../../../hooks";
-import type { ProfileData } from "../../../types";
+import { useChatStore } from "../../../stores";
+import type { ProfileData, ChatSessionSummary } from "../../../types";
 import { DEFAULT_PROFILE } from "../../../types";
 
 interface NavItem {
@@ -43,6 +45,28 @@ interface SidebarProps {
   children?: React.ReactNode;
 }
 
+function groupByDate(
+  items: ChatSessionSummary[],
+): Record<string, ChatSessionSummary[]> {
+  const grouped: Record<string, ChatSessionSummary[]> = {};
+  for (const item of items) {
+    const diffDays = Math.floor(
+      (Date.now() - new Date(item.last_active_at).getTime()) / 86400000,
+    );
+    const key =
+      diffDays <= 0
+        ? "Today"
+        : diffDays === 1
+          ? "Yesterday"
+          : diffDays <= 7
+            ? "Previous 7 Days"
+            : "Earlier";
+    if (!grouped[key]) grouped[key] = [];
+    grouped[key]!.push(item);
+  }
+  return grouped;
+}
+
 export function Sidebar({ children }: SidebarProps) {
   const pathname = usePathname();
   const [collapsed, setCollapsed] = useState(false);
@@ -52,6 +76,10 @@ export function Sidebar({ children }: SidebarProps) {
     "orca_profile",
     DEFAULT_PROFILE,
   );
+  const sessions = useChatStore((state) => state.sessions);
+  const currentSessionId = useChatStore((state) => state.currentSessionId);
+
+  const groupedSessions = groupByDate(sessions);
 
   const displayName = profile.full_name || user?.full_name || "Fisher";
   const displayEmail = user?.email || "";
@@ -191,6 +219,34 @@ export function Sidebar({ children }: SidebarProps) {
             );
           })}
         </nav>
+
+        <div
+          className={`flex-1 px-2.5 overflow-y-auto hide-scrollbar transition-all duration-300 ${
+            collapsed
+              ? "md:opacity-0 md:pointer-events-none md:max-h-0 opacity-100 mt-3"
+              : "opacity-100 mt-3"
+          }`}
+        >
+          {Object.entries(groupedSessions).map(([date, items]) => (
+            <div key={date} className="mb-3">
+              <p className="px-2.5 mb-1 text-[11px] font-medium font-intert text-muted">
+                {date}
+              </p>
+              {items.map((item) => (
+                <ChatSessionItem
+                  key={item.session_id}
+                  item={item}
+                  isActive={
+                    pathname === `/chat/${item.session_id}` ||
+                    (pathname === "/chat" &&
+                      currentSessionId === item.session_id)
+                  }
+                  onCloseMobile={() => setMobileOpen(false)}
+                />
+              ))}
+            </div>
+          ))}
+        </div>
 
         <div className="p-2.5 border-t border-border mt-auto shrink-0">
           <Link
