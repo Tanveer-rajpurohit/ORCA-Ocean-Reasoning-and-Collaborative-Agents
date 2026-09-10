@@ -3,6 +3,7 @@
 import { useRouter } from "next/navigation";
 import {
   LanguageSection,
+  VoiceSection,
   AIPreferencesSection,
   AlertPreferencesSection,
   SessionSection,
@@ -32,6 +33,7 @@ export default function SettingsPage() {
 
         <div className="space-y-6">
           <LanguageSection />
+          <VoiceSection />
           <AIPreferencesSection />
           <AlertPreferencesSection />
           <SessionSection onSignOut={handleSignOut} />

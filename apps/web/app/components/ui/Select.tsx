@@ -31,24 +31,24 @@ interface SelectProps {
 }
 
 const TRIGGER_SIZE: Record<SelectSize, string> = {
-  xs: "px-2 py-1 text-[11px] rounded-md gap-1.5",
-  sm: "px-2.5 py-1.5 text-[11px] rounded-lg gap-2",
-  md: "px-3.5 py-2.5 text-[13px] rounded-xl gap-2.5",
-  lg: "px-4 py-3 text-sm rounded-xl gap-3",
+  xs: "px-2.5 py-1.5 text-[11px] rounded-md gap-2",
+  sm: "px-3 py-2 text-xs rounded-lg gap-2",
+  md: "px-4 py-3 text-sm rounded-xl gap-3",
+  lg: "px-4.5 py-3.5 text-[15px] rounded-xl gap-3",
 };
 
 const MENU_SIZE: Record<SelectSize, string> = {
-  xs: "p-0.5 text-[11px] rounded-md max-h-44",
-  sm: "p-1 text-[11px] rounded-lg max-h-48",
-  md: "p-1.5 text-[13px] rounded-xl max-h-60",
-  lg: "p-2 text-sm rounded-xl max-h-72",
+  xs: "p-1 text-[11px] rounded-md max-h-44",
+  sm: "p-1.5 text-xs rounded-lg max-h-48",
+  md: "p-2 text-sm rounded-xl max-h-60",
+  lg: "p-2.5 text-[15px] rounded-xl max-h-72",
 };
 
 const ITEM_SIZE: Record<SelectSize, string> = {
-  xs: "px-2 py-1 rounded-sm",
-  sm: "px-2.5 py-1.5 rounded-md",
-  md: "px-3 py-2 rounded-lg",
-  lg: "px-3 py-2.5 rounded-lg",
+  xs: "px-2.5 py-1.5 rounded-sm",
+  sm: "px-3 py-2 rounded-md",
+  md: "px-3.5 py-2.5 rounded-lg",
+  lg: "px-4 py-3 rounded-lg",
 };
 
 function normalize(options: (string | SelectOption)[]): SelectOption[] {

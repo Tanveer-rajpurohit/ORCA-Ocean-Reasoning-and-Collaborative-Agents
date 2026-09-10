@@ -19,3 +19,18 @@ export interface AlertPreference {
   label: string;
   description: string;
 }
+
+export type VoiceGender = "male" | "female";
+
+export interface VoiceOption {
+  id: string;
+  name: string;
+  language: string;
+  native: string;
+  gender: VoiceGender;
+  description: string;
+  previewText: string;
+  supported: boolean;
+}
+
+export type SpeechPlaybackStatus = "idle" | "loading" | "speaking";

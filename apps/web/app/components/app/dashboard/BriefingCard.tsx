@@ -1,4 +1,4 @@
-import { CloudLightning, Compass, Volume2 } from "lucide-react";
+import { CloudLightning, Compass } from "lucide-react";
 
 interface BriefingItem {
   icon: typeof CloudLightning;
@@ -63,14 +63,6 @@ export function BriefingCard() {
           </div>
         ))}
       </div>
-
-      <button
-        type="button"
-        className="flex items-center justify-center gap-2 px-5 py-3 border-t border-border text-xs font-intert text-secondary hover:text-primary hover:bg-surface-muted active:scale-[0.99] transition-[color,background-color,transform] duration-100 cursor-pointer"
-      >
-        <Volume2 size={13} />
-        <span>Listen to this briefing</span>
-      </button>
     </section>
   );
 }

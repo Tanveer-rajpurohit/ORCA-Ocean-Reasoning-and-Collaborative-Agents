@@ -1,0 +1,21 @@
+{
+  "name": "tts-service",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "description": "Edge TTS synthesis service for ORCA voice output",
+  "main": "index.ts",
+  "scripts": {
+    "dev": "tsx watch index.ts",
+    "start": "tsx index.ts",
+    "check-types": "tsc --noEmit"
+  },
+  "dependencies": {
+    "node-edge-tts": "^1.2.10"
+  },
+  "devDependencies": {
+    "@types/node": "26.2.0",
+    "tsx": "^4.20.6",
+    "typescript": "7.0.2"
+  }
+}

@@ -136,9 +136,6 @@ export default function DashboardPage() {
               className="w-44"
               menuClassName="w-60"
             />
-            <span className="text-[11px] text-muted font-intert whitespace-nowrap">
-              10 Sep 2026
-            </span>
           </div>
         </div>
 

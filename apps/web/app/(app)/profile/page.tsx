@@ -121,7 +121,7 @@ export default function ProfilePage() {
                 </Link>
               </div>
               <h1 className="text-2xl sm:text-3xl font-instrument text-primary tracking-tight">
-                Fisher Profile
+                Profile
               </h1>
               <p className="text-xs sm:text-sm text-muted mt-1">
                 Your identity, contact for hazard alerts, and vessel details.

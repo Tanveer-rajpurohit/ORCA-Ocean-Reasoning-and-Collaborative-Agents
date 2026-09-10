@@ -1,13 +1,14 @@
 "use client";
 
 import React, { useState } from "react";
-import { Copy, Check } from "lucide-react";
+import { Copy, Check, Volume2, Square, Loader2 } from "lucide-react";
 import { ThinkingOrb } from "thinking-orbs";
 import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm";
 import { AgentThinking } from "./AgentThinking";
 import { MarineChartCard } from "./MarineChartCard";
 import { CitationSources } from "./CitationSources";
+import { useSpeechPlayback } from "../../../../hooks";
 import type { ChatMessageData } from "../../../../types";
 
 interface ChatMessageItemProps {
@@ -35,12 +36,16 @@ export function ChatMessageItem({
   isStreaming = false,
 }: ChatMessageItemProps) {
   const [copied, setCopied] = useState(false);
+  const { speak, stop, status, activeId } = useSpeechPlayback();
 
   const handleCopy = () => {
     navigator.clipboard.writeText(message.content);
     setCopied(true);
     setTimeout(() => setCopied(false), 2000);
   };
+
+  const isThisLoading = activeId === message.id && status === "loading";
+  const isThisSpeaking = activeId === message.id && status === "speaking";
 
   if (message.role === "user") {
     return (
@@ -243,12 +248,54 @@ export function ChatMessageItem({
           <div className="flex items-center gap-2 pt-2 mt-1">
             <button
               type="button"
+              onClick={() => {
+                if (isThisSpeaking || isThisLoading) {
+                  stop();
+                } else {
+                  speak(message.content, message.id);
+                }
+              }}
+              title={
+                isThisLoading
+                  ? "Generating voice..."
+                  : isThisSpeaking
+                    ? "Stop playback"
+                    : "Read this answer aloud"
+              }
+              className={`inline-flex items-center gap-1.5 px-2.5 py-1 rounded-lg text-xs transition-colors cursor-pointer ${
+                isThisSpeaking
+                  ? "bg-brand/10 text-brand border border-brand/25 font-medium"
+                  : isThisLoading
+                    ? "bg-surface-muted text-brand border border-border font-medium"
+                    : "text-muted hover:text-primary hover:bg-surface-muted border border-transparent"
+              }`}
+            >
+              {isThisLoading ? (
+                <>
+                  <Loader2 size={13} className="animate-spin text-brand" />
+                  <span>Loading...</span>
+                </>
+              ) : isThisSpeaking ? (
+                <>
+                  <Square size={11} className="fill-current text-brand" />
+                  <span>Stop</span>
+                </>
+              ) : (
+                <>
+                  <Volume2 size={13} />
+                  <span>Listen</span>
+                </>
+              )}
+            </button>
+
+            <button
+              type="button"
               onClick={handleCopy}
               title="Copy response"
               className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-lg text-xs text-muted hover:text-primary hover:bg-surface-muted transition-colors cursor-pointer"
             >
               {copied ? (
-                <Check size={13} className="text-emerald-500" />
+                <Check size={13} className="text-ocean" />
               ) : (
                 <Copy size={13} />
               )}
