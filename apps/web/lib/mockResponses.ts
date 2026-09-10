@@ -67,15 +67,46 @@ const SAFE_RESPONSE: MockResponse = {
     title: "Wave height through the day",
     unit: "metres",
     variant: "line",
+    subtitle: "Kochi coast",
     issued: "10 Sep, 06:00 IST",
+    source: "Sample INCOIS ocean state forecast",
     threshold: 2,
     thresholdLabel: "Your boat's limit",
-    points: [
-      { label: "06:00", value: 0.9 },
-      { label: "09:00", value: 1.1 },
-      { label: "12:00", value: 1.4 },
-      { label: "15:00", value: 1.8 },
-      { label: "18:00", value: 2.1 },
+    periods: [
+      {
+        id: "today",
+        label: "Today",
+        times: ["06:00", "09:00", "12:00", "15:00", "18:00", "21:00"],
+        series: [
+          {
+            key: "wave",
+            label: "Wave height",
+            values: [0.9, 1.1, 1.4, 1.8, 2.1, 1.7],
+          },
+          {
+            key: "swell",
+            label: "Swell height",
+            values: [0.6, 0.7, 0.9, 1.2, 1.4, 1.1],
+          },
+        ],
+      },
+      {
+        id: "tomorrow",
+        label: "Tomorrow",
+        times: ["00:00", "04:00", "08:00", "12:00", "16:00", "20:00"],
+        series: [
+          {
+            key: "wave",
+            label: "Wave height",
+            values: [1.3, 1.2, 1.5, 1.9, 1.6, 1.2],
+          },
+          {
+            key: "swell",
+            label: "Swell height",
+            values: [0.9, 0.8, 1.0, 1.3, 1.1, 0.8],
+          },
+        ],
+      },
     ],
   },
   content: `## Verdict: **Safe to go out**
@@ -136,12 +167,18 @@ const ZONE_RESPONSE: MockResponse = {
     title: "Catch likelihood by depth band",
     unit: "%",
     variant: "bar",
+    subtitle: "Kerala south",
     issued: "10 Sep, 06:00 IST",
-    points: [
-      { label: "20-30 m", value: 42 },
-      { label: "30-40 m", value: 78 },
-      { label: "40-50 m", value: 65 },
-      { label: "50+ m", value: 31 },
+    source: "Sample INCOIS potential fishing zone advisory",
+    periods: [
+      {
+        id: "today",
+        label: "Today",
+        times: ["20-30 m", "30-40 m", "40-50 m", "50+ m"],
+        series: [
+          { key: "likelihood", label: "Likelihood", values: [42, 78, 65, 31] },
+        ],
+      },
     ],
   },
   content: `## Today's zone: **bearing 247°, 38 km from Kochi**
@@ -196,14 +233,29 @@ const WAVE_RESPONSE: MockResponse = {
     title: "Wave height, next 3 days",
     unit: "metres",
     variant: "line",
+    subtitle: "Kochi coast",
     issued: "10 Sep, 06:00 IST",
+    source: "Sample INCOIS ocean state forecast",
     threshold: 2,
     thresholdLabel: "Your boat's limit",
-    points: [
-      { label: "Today", value: 1.2 },
-      { label: "Tomorrow", value: 1.6 },
-      { label: "Day 3", value: 2.6 },
-      { label: "Day 4", value: 1.5 },
+    periods: [
+      {
+        id: "trend",
+        label: "3-day",
+        times: ["Today", "Tomorrow", "Day 3", "Day 4"],
+        series: [
+          {
+            key: "wave",
+            label: "Wave height",
+            values: [1.2, 1.6, 2.6, 1.5],
+          },
+          {
+            key: "swell",
+            label: "Swell height",
+            values: [0.8, 1.1, 1.8, 1.0],
+          },
+        ],
+      },
     ],
   },
   content: `## Two workable days, then it turns
@@ -255,13 +307,22 @@ const TEMPERATURE_RESPONSE: MockResponse = {
     title: "Sea surface temperature by distance",
     unit: "°C",
     variant: "line",
+    subtitle: "Kerala coast",
     issued: "10 Sep, 05:00 IST",
-    points: [
-      { label: "Coast", value: 28.4 },
-      { label: "10 km", value: 28.1 },
-      { label: "25 km", value: 27.6 },
-      { label: "40 km", value: 28.3 },
-      { label: "55 km", value: 28.9 },
+    source: "Sample MOSDAC sea surface temperature composite",
+    periods: [
+      {
+        id: "transect",
+        label: "Transect",
+        times: ["Coast", "10 km", "25 km", "40 km", "55 km"],
+        series: [
+          {
+            key: "sst",
+            label: "Sea surface temp",
+            values: [28.4, 28.1, 27.6, 28.3, 28.9],
+          },
+        ],
+      },
     ],
   },
   content: `## Sea temperature is running warm
@@ -318,14 +379,20 @@ const HAZARD_RESPONSE: MockResponse = {
     title: "Hazard distance from your position",
     unit: "km",
     variant: "bar",
+    subtitle: "Kochi sector",
     issued: "10 Sep, 08:00 IST",
+    source: "Sample IMD coastal warning feed",
     threshold: 50,
     thresholdLabel: "Watch radius",
-    points: [
-      { label: "Cyclone", value: 420 },
-      { label: "Squall", value: 90 },
-      { label: "Lightning", value: 47 },
-      { label: "Swell", value: 0 },
+    periods: [
+      {
+        id: "now",
+        label: "Now",
+        times: ["Cyclone", "Squall", "Lightning", "Swell"],
+        series: [
+          { key: "distance", label: "Distance", values: [420, 90, 47, 0] },
+        ],
+      },
     ],
   },
   content: `## No active hazard for your position
@@ -386,13 +453,30 @@ const GENERAL_RESPONSE: MockResponse = {
     title: "Wind speed through the day",
     unit: "km/h",
     variant: "bar",
+    subtitle: "Kochi sector",
     issued: "10 Sep, 06:00 IST",
-    points: [
-      { label: "06:00", value: 9 },
-      { label: "09:00", value: 12 },
-      { label: "12:00", value: 16 },
-      { label: "15:00", value: 21 },
-      { label: "18:00", value: 14 },
+    source: "Sample IMD coastal bulletin",
+    periods: [
+      {
+        id: "today",
+        label: "Today",
+        times: ["06:00", "09:00", "12:00", "15:00", "18:00", "21:00"],
+        series: [
+          { key: "wind", label: "Wind speed", values: [9, 12, 16, 21, 14, 10] },
+        ],
+      },
+      {
+        id: "tomorrow",
+        label: "Tomorrow",
+        times: ["00:00", "04:00", "08:00", "12:00", "16:00", "20:00"],
+        series: [
+          {
+            key: "wind",
+            label: "Wind speed",
+            values: [11, 10, 14, 19, 17, 12],
+          },
+        ],
+      },
     ],
   },
   content: `## Here is what I found

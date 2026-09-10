@@ -8,28 +8,28 @@ const SUGGESTIONS: SuggestionItem[] = [
     id: "1",
     icon: Wind,
     title: "Is it safe tomorrow?",
-    subtitle: "Check if conditions suit your boat for an early start",
+    subtitle: "Understand conditions for your boat",
     prompt: "Is it safe to go fishing tomorrow morning from Kochi?",
   },
   {
     id: "2",
     icon: Compass,
-    title: "Where are the fish?",
-    subtitle: "Today's potential fishing zone and the run to it",
+    title: "Where are the fish today?",
+    subtitle: "Find a zone, spend less time searching",
     prompt: "Where is the fishing zone today and how far is it from my port?",
   },
   {
     id: "3",
     icon: CloudLightning,
-    title: "Any warnings near me?",
-    subtitle: "Cyclone, squall, and lightning activity for your sector",
+    title: "Any warnings near my port?",
+    subtitle: "Stay ahead of changing weather",
     prompt: "Are there any cyclone or storm warnings near my position?",
   },
   {
     id: "4",
     icon: LifeBuoy,
-    title: "Wave outlook",
-    subtitle: "Sea state for the next few days before you plan",
+    title: "What is the wave outlook?",
+    subtitle: "A little foresight before you set sail",
     prompt: "What will the wave height be over the next three days?",
   },
 ];
@@ -50,14 +50,15 @@ export function ChatSuggestions({ onSelect }: ChatSuggestionsProps) {
             onClick={() => onSelect(item.prompt)}
             className="card-interactive flex items-start gap-3 p-3.5 rounded-xl border border-border bg-surface hover:bg-surface-muted/70 hover:border-brand/30 text-left group cursor-pointer"
           >
-            <div className="w-8 h-8 rounded-lg bg-surface-muted group-hover:bg-brand/15 text-muted group-hover:text-brand flex items-center justify-center shrink-0 transition-colors">
-              <Icon size={16} />
-            </div>
+            <Icon
+              size={18}
+              className="text-muted group-hover:text-brand transition-colors shrink-0 mt-0.5"
+            />
             <div className="min-w-0 flex-1">
-              <p className="text-[13px] font-medium text-primary font-intert truncate">
+              <p className="text-[13px] font-medium text-primary font-intert">
                 {item.title}
               </p>
-              <p className="text-xs text-muted font-intert line-clamp-1 mt-0.5">
+              <p className="text-[11px] text-muted font-intert mt-0.5">
                 {item.subtitle}
               </p>
             </div>

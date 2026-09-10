@@ -45,14 +45,29 @@ export interface ChartPoint {
   value: number;
 }
 
+export interface ChartSeries {
+  key: string;
+  label: string;
+  values: number[];
+}
+
+export interface ChartPeriod {
+  id: string;
+  label: string;
+  times: string[];
+  series: ChartSeries[];
+}
+
 export interface MarineChartData {
   title: string;
   unit: string;
   variant: ChartVariant;
-  points: ChartPoint[];
+  subtitle?: string;
+  issued?: string;
+  source?: string;
   threshold?: number;
   thresholdLabel?: string;
-  issued?: string;
+  periods: ChartPeriod[];
 }
 
 export interface AgentRun {

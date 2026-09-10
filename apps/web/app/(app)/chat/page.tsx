@@ -7,9 +7,10 @@ import {
   ChatSuggestions,
   ChatMessageItem,
 } from "../../components/app/chat";
-import { useAgentStream } from "../../../hooks";
+import { useAgentStream, useLocalStorageState } from "../../../hooks";
 import { useChatStore } from "../../../stores";
-import type { ChatMessageData } from "../../../types";
+import type { ChatMessageData, ProfileData } from "../../../types";
+import { DEFAULT_PROFILE } from "../../../types";
 
 function formatLatency(ms?: number): string {
   if (!ms || ms <= 0) return "240ms";
@@ -34,6 +35,10 @@ export default function ChatPage() {
   const currentSessionId = useChatStore((state) => state.currentSessionId);
   const runsBySession = useChatStore((state) => state.runsBySession);
   const newSession = useChatStore((state) => state.newSession);
+  const [profile] = useLocalStorageState<ProfileData>(
+    "orca_profile",
+    DEFAULT_PROFILE,
+  );
 
   useEffect(() => {
     const handleNewChat = () => {
@@ -111,32 +116,45 @@ export default function ChatPage() {
   });
 
   const isEmpty = messages.length === 0 && !isStreaming;
+  const contextLabel = `${profile.home_port.split(",")[0]} · ${profile.vessel_type}`;
+
+  const composer = (
+    <ChatInput
+      value={query}
+      onChange={setQuery}
+      onSubmit={handleSend}
+      disabled={isStreaming}
+      contextLabel={contextLabel}
+      placeholder={
+        isStreaming
+          ? "ORCA is replying..."
+          : "Ask about sea conditions, fishing zones, or your next trip..."
+      }
+    />
+  );
 
   return (
     <div className="relative flex-1 flex flex-col min-h-0 h-full">
       {isEmpty ? (
         <div className="flex-1 flex flex-col items-center justify-center px-4 sm:px-6 overflow-y-auto">
-          <div className="w-full max-w-2xl space-y-8 animate-in fade-in duration-300 my-auto py-8">
+          <div className="w-full max-w-2xl space-y-7 animate-in fade-in duration-300 my-auto py-8">
             <div className="text-center">
-              <div className="flex justify-center mb-5">
+              <div className="flex justify-center mb-6">
                 <ThinkingOrb state="breathing" size={64} theme="light" />
               </div>
+              <p className="text-[10px] font-semibold tracking-[0.14em] uppercase text-ocean mb-3 font-intert">
+                Your sea. Your language. Your ORCA.
+              </p>
               <h1 className="text-3xl sm:text-4xl font-instrument text-primary tracking-tight">
-                What do you need to know?
+                What&apos;s on your horizon?
               </h1>
-              <p className="mt-2 text-sm text-muted font-intert">
-                Ask about the sea, your route, or today&apos;s fishing zone. Every
-                answer cites its source.
+              <p className="mt-3 text-sm text-muted font-intert max-w-md mx-auto leading-relaxed">
+                Ask about the sea, your next trip, or where the fish might be.
+                A clearer answer starts with a simple question.
               </p>
             </div>
 
-            <ChatInput
-              value={query}
-              onChange={setQuery}
-              onSubmit={handleSend}
-              autoFocus
-            />
-
+            {composer}
             <ChatSuggestions onSelect={handleSend} />
           </div>
         </div>
@@ -145,7 +163,7 @@ export default function ChatPage() {
           <div
             ref={scrollContainerRef}
             onScroll={handleScroll}
-            className="flex-1 overflow-y-auto min-h-0 px-4 sm:px-8 pt-6 pb-36"
+            className="flex-1 overflow-y-auto min-h-0 px-4 sm:px-8 pt-6 pb-40"
           >
             <div className="mx-auto max-w-3xl space-y-2 animate-in fade-in duration-300">
               {messages.map((msg) => (
@@ -188,13 +206,11 @@ export default function ChatPage() {
               className="pointer-events-none absolute inset-x-0 bottom-0 h-32 bg-linear-to-t from-bg via-bg/95 to-transparent"
             />
             <div className="relative mx-auto max-w-3xl">
-              <ChatInput
-                value={query}
-                onChange={setQuery}
-                onSubmit={handleSend}
-                disabled={isStreaming}
-                placeholder="Reply to ORCA..."
-              />
+              {composer}
+              <p className="text-center text-[10px] text-muted mt-2 font-intert">
+                Advisory support only · Verify official bulletins before making
+                decisions at sea.
+              </p>
             </div>
           </div>
         </>

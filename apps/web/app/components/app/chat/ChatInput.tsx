@@ -1,7 +1,7 @@
 "use client";
 
 import { useRef, useEffect, useState } from "react";
-import { ArrowUp, Mic, MicOff } from "lucide-react";
+import { ArrowUp, Mic, MicOff, Anchor } from "lucide-react";
 import type {
   SpeechRecognitionInstance,
   SpeechRecognitionEvent,
@@ -16,6 +16,7 @@ interface ChatInputProps {
   placeholder?: string;
   autoFocus?: boolean;
   disabled?: boolean;
+  contextLabel?: string;
 }
 
 export function ChatInput({
@@ -25,6 +26,7 @@ export function ChatInput({
   placeholder = "Ask about sea conditions, fishing zones, or safety...",
   autoFocus = false,
   disabled = false,
+  contextLabel,
 }: ChatInputProps) {
   const textareaRef = useRef<HTMLTextAreaElement>(null);
   const recognitionRef = useRef<SpeechRecognitionInstance | null>(null);
@@ -254,8 +256,17 @@ export function ChatInput({
           />
         </div>
 
-        <div className="flex items-center justify-end px-3 pb-3 pt-1">
-          <div className="flex items-center gap-2">
+        <div className="flex items-center justify-between gap-3 px-3 pb-3 pt-1">
+          <span className="flex items-center gap-1.5 text-[11px] text-muted font-intert min-w-0">
+            {contextLabel ? (
+              <>
+                <Anchor size={11} className="shrink-0" />
+                <span className="truncate">{contextLabel}</span>
+              </>
+            ) : null}
+          </span>
+
+          <div className="flex items-center gap-2 shrink-0">
             {isSpeechSupported && (
               <button
                 type="button"

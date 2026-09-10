@@ -4,6 +4,7 @@ import { useState } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import {
+  Gauge,
   Bot,
   Map,
   Compass,
@@ -32,6 +33,7 @@ interface NavItem {
 }
 
 const NAV_ITEMS: NavItem[] = [
+  { href: "/dashboard", label: "Dashboard", icon: Gauge },
   { href: "/chat", label: "Chat", icon: Bot },
   { href: "/map", label: "Sea Map", icon: Map },
   { href: "/advisories", label: "Advisories", icon: Compass },
