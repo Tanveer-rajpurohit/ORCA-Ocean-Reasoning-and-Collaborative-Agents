@@ -96,7 +96,7 @@ export default function ProjectCapabilitiesSection() {
               </h2>
             </div>
             <p className="max-w-md text-sm sm:text-base leading-7 text-secondary font-intert lg:pb-1">
-              ORCA turns multiple technical feeds into a single explainable advisory—so a safe departure, productive route, or rescue response can be decided with confidence.
+              ORCA turns multiple technical feeds into a single explainable advisory, so a safe departure, productive route, or rescue response can be decided with confidence.
             </p>
           </div>
         </div>

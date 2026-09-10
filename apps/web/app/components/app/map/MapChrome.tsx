@@ -8,8 +8,8 @@ const LEGENDS: Record<MapDataMode, { title: string; entries: LegendEntry[] }> = 
     title: "Wave height",
     entries: [
       { color: waveColor(0.8), label: "Calm", value: "under 1.0 m" },
-      { color: waveColor(1.2), label: "Slight", value: "1.0 – 1.5 m" },
-      { color: waveColor(1.7), label: "Moderate", value: "1.5 – 2.0 m" },
+      { color: waveColor(1.2), label: "Slight", value: "1.0 to 1.5 m" },
+      { color: waveColor(1.7), label: "Moderate", value: "1.5 to 2.0 m" },
       { color: waveColor(2.3), label: "Rough", value: "over 2.0 m" },
     ],
   },
@@ -17,7 +17,7 @@ const LEGENDS: Record<MapDataMode, { title: string; entries: LegendEntry[] }> = 
     title: "Wind speed",
     entries: [
       { color: "#5AA79A", label: "Light", value: "under 12 km/h" },
-      { color: "#B89465", label: "Steady", value: "12 – 20 km/h" },
+      { color: "#B89465", label: "Steady", value: "12 to 20 km/h" },
       { color: "#A4665C", label: "Strong", value: "over 20 km/h" },
     ],
   },
@@ -25,8 +25,8 @@ const LEGENDS: Record<MapDataMode, { title: string; entries: LegendEntry[] }> = 
     title: "Sea surface temperature",
     entries: [
       { color: tempColor(27.1), label: "Cool break", value: "under 27.4 °C" },
-      { color: tempColor(27.6), label: "Cooling", value: "27.4 – 27.9 °C" },
-      { color: tempColor(28.1), label: "Seasonal", value: "27.9 – 28.3 °C" },
+      { color: tempColor(27.6), label: "Cooling", value: "27.4 to 27.9 °C" },
+      { color: tempColor(28.1), label: "Seasonal", value: "27.9 to 28.3 °C" },
       { color: tempColor(28.5), label: "Warm", value: "over 28.3 °C" },
     ],
   },
@@ -44,7 +44,7 @@ export function MapLegend({ mode }: { mode: MapDataMode }) {
   const legend = LEGENDS[mode];
 
   return (
-    <div className="absolute left-3 top-3 z-20 rounded-lg border border-border bg-surface/85 backdrop-blur-md shadow-sm px-3.5 py-3 font-intert max-w-[190px]">
+    <div className="absolute left-3 top-3 z-20 rounded-xl border border-border bg-surface/90 backdrop-blur-md shadow-sm px-3.5 py-3 font-intert max-w-[205px]">
       <p className="text-[10px] font-semibold text-muted uppercase tracking-wider">
         {legend.title}
       </p>
@@ -63,6 +63,15 @@ export function MapLegend({ mode }: { mode: MapDataMode }) {
           </div>
         ))}
       </div>
+    </div>
+  );
+}
+
+export function SectorBadge() {
+  return (
+    <div className="absolute left-3 bottom-3 z-20 hidden sm:flex items-center gap-2 px-3 py-1.5 rounded-lg border border-border bg-surface/90 backdrop-blur-md shadow-sm text-xs font-intert">
+      <span className="font-medium text-primary text-[11px]">Kochi Sector · Arabian Sea</span>
+      <span className="text-muted text-[10px] border-l border-border pl-2">INCOIS Realtime Telemetry</span>
     </div>
   );
 }

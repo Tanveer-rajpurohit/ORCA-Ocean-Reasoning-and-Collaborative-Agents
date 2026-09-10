@@ -15,70 +15,75 @@ export interface ZonePolygon {
   name: string;
   bearingDeg: number;
   distanceKm: number;
+  centroid: Coordinate;
   coordinates: Coordinate[];
 }
 
 export const HOME_PORT: Coordinate = [76.25, 9.96];
 
-export const VESSEL_POSITION: Coordinate = [75.86, 9.72];
+export const VESSEL_POSITION: Coordinate = [76.04, 9.89];
+
+export const NAV_ROUTE: Coordinate[] = [
+  [76.25, 9.96],
+  [76.13, 9.92],
+  [76.04, 9.89],
+  [75.90, 9.83],
+];
 
 export const FISHING_ZONES: ZonePolygon[] = [
   {
-    name: "Zone A",
-    bearingDeg: 247,
+    name: "PFZ 01 · Southwest of Kochi",
+    bearingDeg: 240,
     distanceKm: 38,
+    centroid: [75.90, 9.83],
     coordinates: [
-      [75.62, 9.74],
-      [75.74, 9.7],
-      [75.82, 9.58],
-      [75.7, 9.52],
-      [75.58, 9.62],
-      [75.62, 9.74],
+      [75.75, 9.82],
+      [75.84, 9.91],
+      [75.99, 9.94],
+      [76.04, 9.84],
+      [75.91, 9.72],
+      [75.78, 9.73],
+      [75.75, 9.82],
     ],
   },
   {
-    name: "Zone B",
-    bearingDeg: 231,
-    distanceKm: 52,
+    name: "PFZ 02 · West of Vypin",
+    bearingDeg: 295,
+    distanceKm: 42,
+    centroid: [75.90, 10.17],
     coordinates: [
-      [75.34, 9.46],
-      [75.48, 9.42],
-      [75.54, 9.3],
-      [75.4, 9.26],
-      [75.3, 9.36],
-      [75.34, 9.46],
+      [75.78, 10.13],
+      [75.88, 10.24],
+      [76.00, 10.25],
+      [76.03, 10.15],
+      [75.91, 10.08],
+      [75.78, 10.13],
     ],
   },
 ];
 
 export const WIND_POINTS: WindPoint[] = [
-  { position: [75.9, 10.15], directionDeg: 315, speedKmh: 14 },
-  { position: [76.1, 10.05], directionDeg: 320, speedKmh: 11 },
-  { position: [75.7, 9.95], directionDeg: 305, speedKmh: 16 },
-  { position: [75.9, 9.8], directionDeg: 310, speedKmh: 12 },
-  { position: [76.15, 9.75], directionDeg: 300, speedKmh: 9 },
-  { position: [75.6, 9.6], directionDeg: 295, speedKmh: 19 },
-  { position: [75.85, 9.5], directionDeg: 300, speedKmh: 15 },
-  { position: [76.05, 9.4], directionDeg: 290, speedKmh: 10 },
+  { position: [76.14, 10.04], directionDeg: 310, speedKmh: 10 },
+  { position: [75.72, 10.28], directionDeg: 320, speedKmh: 14 },
+  { position: [76.02, 9.55], directionDeg: 295, speedKmh: 11 },
+  { position: [75.55, 9.92], directionDeg: 315, speedKmh: 16 },
+  { position: [75.25, 9.70], directionDeg: 325, speedKmh: 21 },
 ];
 
 export const WAVE_POINTS: WavePoint[] = [
-  { position: [75.95, 10.1], heightM: 0.8 },
-  { position: [76.15, 9.98], heightM: 1.1 },
-  { position: [75.75, 9.88], heightM: 1.4 },
-  { position: [75.95, 9.72], heightM: 1.7 },
-  { position: [76.2, 9.62], heightM: 1.2 },
-  { position: [75.55, 9.55], heightM: 2.3 },
-  { position: [75.8, 9.42], heightM: 2.0 },
-  { position: [76.05, 9.32], heightM: 1.3 },
+  { position: [76.14, 10.04], heightM: 0.9 },
+  { position: [75.72, 10.28], heightM: 1.2 },
+  { position: [76.02, 9.55], heightM: 1.3 },
+  { position: [75.55, 9.92], heightM: 1.7 },
+  { position: [75.25, 9.70], heightM: 2.2 },
 ];
 
 export const IMBL_LINE: Coordinate[] = [
-  [74.9, 10.4],
-  [75.05, 9.95],
-  [75.12, 9.45],
-  [74.95, 8.95],
-  [74.7, 8.5],
+  [74.80, 10.50],
+  [74.95, 10.00],
+  [75.05, 9.50],
+  [74.90, 9.00],
+  [74.70, 8.50],
 ];
 
 export interface TempPoint {
@@ -87,14 +92,11 @@ export interface TempPoint {
 }
 
 export const TEMP_POINTS: TempPoint[] = [
-  { position: [75.95, 10.1], celsius: 28.4 },
-  { position: [76.15, 9.98], celsius: 28.2 },
-  { position: [75.75, 9.88], celsius: 27.8 },
-  { position: [75.95, 9.72], celsius: 27.3 },
-  { position: [76.2, 9.62], celsius: 28.1 },
-  { position: [75.55, 9.55], celsius: 27.1 },
-  { position: [75.8, 9.42], celsius: 27.6 },
-  { position: [76.05, 9.32], celsius: 28.5 },
+  { position: [76.14, 10.04], celsius: 28.5 },
+  { position: [75.72, 10.28], celsius: 28.2 },
+  { position: [76.02, 9.55], celsius: 28.4 },
+  { position: [75.55, 9.92], celsius: 27.6 },
+  { position: [75.25, 9.70], celsius: 27.1 },
 ];
 
 export function tempColor(celsius: number): string {

@@ -6,7 +6,7 @@ export default function AuditLogPage() {
           Audit Log
         </h1>
         <p className="text-sm text-muted font-intert mt-1 max-w-lg">
-          Every agent decision, tool call, and alert in a reviewable trail —
+          Every agent decision, tool call, and alert in a reviewable trail,
           including what happens when a data source fails.
         </p>
       </div>

@@ -1,33 +1,92 @@
 "use client";
 
-import { Minus, Plus, RotateCcw } from "lucide-react";
-import type { MapViewMode } from "../../../../types";
+import {
+  Globe,
+  LocateFixed,
+  Map as MapIcon,
+  Minus,
+  Moon,
+  Plus,
+  RotateCcw,
+} from "lucide-react";
+import type { BasemapStyle, MapViewMode } from "../../../../types";
 
 interface MapChromeProps {
   viewMode: MapViewMode;
   onChangeViewMode: (mode: MapViewMode) => void;
+  basemapStyle: BasemapStyle;
+  onChangeBasemapStyle: (style: BasemapStyle) => void;
   onZoomIn: () => void;
   onZoomOut: () => void;
   onReset: () => void;
+  onCenterBoat?: () => void;
 }
 
 const CHROME =
-  "rounded-lg border border-border bg-surface/85 backdrop-blur-md shadow-sm";
+  "rounded-xl border border-border bg-surface/90 backdrop-blur-md shadow-sm";
+
+const BASEMAP_OPTIONS = [
+  {
+    id: "chart" as const,
+    label: "Chart",
+    title: "Nautical vector chart",
+    icon: MapIcon,
+  },
+  {
+    id: "satellite" as const,
+    label: "Satellite",
+    title: "ESRI satellite imagery",
+    icon: Globe,
+  },
+  {
+    id: "dark" as const,
+    label: "Radar",
+    title: "Tactical night radar",
+    icon: Moon,
+  },
+];
 
 export function MapControls({
   viewMode,
   onChangeViewMode,
+  basemapStyle,
+  onChangeBasemapStyle,
   onZoomIn,
   onZoomOut,
   onReset,
+  onCenterBoat,
 }: MapChromeProps) {
   return (
-    <div className="absolute right-3 top-3 z-20 flex flex-col gap-2">
+    <div className="absolute right-3 top-3 z-20 flex flex-col gap-2 font-intert">
+      <div className={`${CHROME} flex flex-col overflow-hidden`}>
+        {BASEMAP_OPTIONS.map((option) => {
+          const Icon = option.icon;
+          const isActive = basemapStyle === option.id;
+          return (
+            <button
+              key={option.id}
+              type="button"
+              onClick={() => onChangeBasemapStyle(option.id)}
+              aria-pressed={isActive}
+              title={option.title}
+              className={`w-8 h-8 grid place-items-center transition-colors cursor-pointer ${
+                isActive
+                  ? "bg-brand text-white shadow-xs"
+                  : "text-secondary hover:text-primary hover:bg-surface-muted"
+              }`}
+            >
+              <Icon size={14} />
+            </button>
+          );
+        })}
+      </div>
+
       <div className={`${CHROME} flex flex-col overflow-hidden`}>
         <button
           type="button"
           onClick={onZoomIn}
           aria-label="Zoom in"
+          title="Zoom in"
           className="w-8 h-8 grid place-items-center text-secondary hover:text-primary hover:bg-surface-muted transition-colors cursor-pointer"
         >
           <Plus size={15} />
@@ -37,6 +96,7 @@ export function MapControls({
           type="button"
           onClick={onZoomOut}
           aria-label="Zoom out"
+          title="Zoom out"
           className="w-8 h-8 grid place-items-center text-secondary hover:text-primary hover:bg-surface-muted transition-colors cursor-pointer"
         >
           <Minus size={15} />
@@ -50,9 +110,10 @@ export function MapControls({
             type="button"
             onClick={() => onChangeViewMode(option)}
             aria-pressed={viewMode === option}
-            className={`w-8 h-8 grid place-items-center text-[10px] font-semibold transition-colors cursor-pointer ${
+            title={option === "3d" ? "Nautical 3D perspective" : "Top down 2D chart"}
+            className={`w-8 h-8 grid place-items-center text-[10.5px] font-semibold transition-colors cursor-pointer ${
               viewMode === option
-                ? "bg-brand text-white"
+                ? "bg-brand text-white shadow-xs"
                 : "text-secondary hover:text-primary hover:bg-surface-muted"
             }`}
           >
@@ -61,11 +122,24 @@ export function MapControls({
         ))}
       </div>
 
+      {onCenterBoat && (
+        <button
+          type="button"
+          onClick={onCenterBoat}
+          aria-label="Center on your location"
+          title="Locate your location"
+          className={`${CHROME} w-8 h-8 grid place-items-center text-secondary hover:text-brand hover:bg-surface-muted transition-colors cursor-pointer`}
+        >
+          <LocateFixed size={15} />
+        </button>
+      )}
+
       <button
         type="button"
         onClick={onReset}
-        aria-label="Reset view"
-        className={`${CHROME} w-8 h-8 grid place-items-center text-secondary hover:text-primary transition-colors cursor-pointer`}
+        aria-label="Reset orientation and center"
+        title="Reset to North orientation"
+        className={`${CHROME} w-8 h-8 grid place-items-center text-secondary hover:text-primary hover:bg-surface-muted transition-colors cursor-pointer`}
       >
         <RotateCcw size={14} />
       </button>
