@@ -54,12 +54,13 @@ export default function FAQSection() {
     <section id="faq" className="w-full border-b border-border">
       <div className="w-full max-w-6xl mx-auto border-x border-border px-4 sm:px-8 py-12 sm:py-16 flex flex-col lg:flex-row gap-8 lg:gap-12">
         <div className="w-full lg:w-1/3 flex flex-col gap-3">
-          <div className="text-primary font-normal text-3xl md:text-5xl font-instrument tracking-tight">
-            Frequently Asked Questions
-          </div>
-          <div className="text-muted text-sm sm:text-base font-intert leading-relaxed">
-            Everything you need to know about ORCA, satellite data fusion, and agentic marine decision support.
-          </div>
+          <h2 className="text-primary font-normal text-3xl md:text-5xl font-instrument tracking-tight text-balance">
+            Frequently asked questions
+          </h2>
+          <p className="text-muted text-sm sm:text-base font-intert leading-relaxed text-pretty">
+            How ORCA uses marine data, voice access, and safety checks to
+            support decisions at sea.
+          </p>
         </div>
 
         <div className="w-full lg:w-2/3 flex flex-col">
@@ -72,27 +73,37 @@ export default function FAQSection() {
                 className="w-full border-b border-border/80 last:border-b-0 overflow-hidden"
               >
                 <button
+                  type="button"
                   onClick={() => toggleFAQItem(index)}
-                  className="w-full py-4 flex justify-between items-center gap-4 text-left hover:opacity-80 transition-opacity"
+                  aria-expanded={isOpen}
+                  aria-controls={`faq-panel-${index}`}
+                  className="w-full rounded-sm py-4 flex justify-between items-center gap-4 text-left hover:text-brand transition-colors"
                 >
-                  <div className="flex-1 text-primary text-sm sm:text-base font-medium font-intert">
+                  <span className="flex-1 text-primary text-sm sm:text-base font-medium font-intert">
                     {item.question}
-                  </div>
+                  </span>
                   <ChevronDown
                     size={18}
-                    className={`text-muted transition-transform duration-300 ${
+                    aria-hidden="true"
+                    className={`text-muted transition-transform duration-200 ${
                       isOpen ? "rotate-180" : "rotate-0"
                     }`}
                   />
                 </button>
 
                 <div
-                  className={`overflow-hidden transition-all duration-300 ease-in-out ${
-                    isOpen ? "max-h-96 opacity-100 pb-4" : "max-h-0 opacity-0"
+                  id={`faq-panel-${index}`}
+                  role="region"
+                  className={`grid transition-[grid-template-rows,opacity] duration-200 ease-out ${
+                    isOpen
+                      ? "grid-rows-[1fr] opacity-100"
+                      : "grid-rows-[0fr] opacity-0"
                   }`}
                 >
-                  <div className="text-muted text-xs sm:text-sm font-intert leading-relaxed">
-                    {item.answer}
+                  <div className="overflow-hidden">
+                    <p className="text-muted text-sm font-intert leading-relaxed pb-4 max-w-prose">
+                      {item.answer}
+                    </p>
                   </div>
                 </div>
               </div>

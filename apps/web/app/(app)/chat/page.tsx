@@ -41,17 +41,29 @@ export default function ChatPage() {
   );
 
   useEffect(() => {
+    const sharedQuery = new URLSearchParams(window.location.search)
+      .get("q")
+      ?.trim();
+    const frameId = sharedQuery
+      ? window.requestAnimationFrame(() => setQuery(sharedQuery))
+      : null;
+
+    if (sharedQuery) {
+      window.history.replaceState(null, "", window.location.pathname);
+    }
+
     const handleNewChat = () => {
       newSession();
       isUserNearBottomRef.current = true;
     };
     window.addEventListener("orca:new-chat", handleNewChat);
-    return () => window.removeEventListener("orca:new-chat", handleNewChat);
+    return () => {
+      if (frameId !== null) window.cancelAnimationFrame(frameId);
+      window.removeEventListener("orca:new-chat", handleNewChat);
+    };
   }, [newSession]);
 
-  const runs = currentSessionId
-    ? (runsBySession[currentSessionId] ?? [])
-    : [];
+  const runs = currentSessionId ? (runsBySession[currentSessionId] ?? []) : [];
 
   const scrollToBottom = useCallback((behavior: ScrollBehavior = "auto") => {
     const el = scrollContainerRef.current;
@@ -149,8 +161,8 @@ export default function ChatPage() {
                 What&apos;s on your horizon?
               </h1>
               <p className="mt-3 text-sm text-muted font-intert max-w-md mx-auto leading-relaxed">
-                Ask about the sea, your next trip, or where the fish might be.
-                A clearer answer starts with a simple question.
+                Ask about the sea, your next trip, or where the fish might be. A
+                clearer answer starts with a simple question.
               </p>
             </div>
 
@@ -186,7 +198,8 @@ export default function ChatPage() {
                       content: streamingAssistantResponse,
                       thinking: {
                         durationSeconds: 2,
-                        summary: "Routing your question across the agent core...",
+                        summary:
+                          "Routing your question across the agent core...",
                         steps: streamingSteps,
                         detailedThought: `Active prompt: "${streamingUserMessage}"\nDispatching weather, ocean, and geospatial agents in parallel...`,
                       },

@@ -2,40 +2,52 @@
 @import "@repo/tailwind-config";
 
 .font-intert {
-  font-family: var(--font-inter-tight), "Inter Tight", "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  font-family:
+    var(--font-inter-tight),
+    "Inter Tight",
+    "Inter",
+    -apple-system,
+    BlinkMacSystemFont,
+    "Segoe UI",
+    Roboto,
+    sans-serif;
 }
 
 .font-mono {
-  font-family: var(--font-mono), "JetBrains Mono", ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+  font-family:
+    var(--font-mono), "JetBrains Mono", ui-monospace, SFMono-Regular, Menlo,
+    Monaco, Consolas, monospace;
 }
 
 .font-instrument {
-  font-family: var(--font-instrument), "Instrument Serif", Georgia, Cambria, "Times New Roman", serif;
+  font-family:
+    var(--font-instrument), "Instrument Serif", Georgia, Cambria,
+    "Times New Roman", serif;
 }
 
 :root {
-  --bg: #F6F8FA;
-  --surface: #FFFFFF;
-  --surface-muted: #F1F5F7;
-  --text-primary: #193E53;
-  --text-secondary: #23384A;
-  --text-muted: #85919E;
-  --border: #E5EAEE;
-  --border-subtle: #EDF1F3;
-  --accent: #193E53;
-  --brand: #193E53;
-  --brand-2: #6085AD;
-  --brand-hover: #28566E;
+  --bg: #ffffff;
+  --surface: #ffffff;
+  --surface-muted: #f3f7f7;
+  --text-primary: #193e53;
+  --text-secondary: #2f4759;
+  --text-muted: #62727f;
+  --border: #dce4e9;
+  --border-subtle: #edf1f3;
+  --accent: #193e53;
+  --brand: #193e53;
+  --brand-2: #426d7c;
+  --brand-hover: #102f40;
   --brand-subtle: rgba(25, 62, 83, 0.08);
-  --brand-gradient: linear-gradient(135deg, #193E53, #6085AD);
-  --ocean: #338E7F;
-  --ocean-2: #5AA79A;
-  --ocean-subtle: rgba(51, 142, 127, 0.1);
-  --success: #338E7F;
-  --warning: #B89465;
-  --danger: #A4665C;
-  --loader-track: #E5EAEE;
-  --loader-fill: #94A3B8;
+  --brand-gradient: linear-gradient(135deg, #193e53, #426d7c);
+  --ocean: #168f85;
+  --ocean-2: #42a69b;
+  --ocean-subtle: rgba(22, 143, 133, 0.1);
+  --success: #16875f;
+  --warning: #c66a22;
+  --danger: #b94a3c;
+  --loader-track: #e2e8f0;
+  --loader-fill: #728695;
 }
 
 .brand-glow {
@@ -50,7 +62,11 @@
   inset: -8% 0 auto 0;
   width: 100%;
   height: 460px;
-  background: radial-gradient(65% 60% at 50% 0%, var(--brand-subtle), transparent 72%);
+  background: radial-gradient(
+    65% 60% at 50% 0%,
+    var(--brand-subtle),
+    transparent 72%
+  );
   pointer-events: none;
   z-index: -1;
 }
@@ -65,7 +81,9 @@
 .btn-brand-solid {
   background-color: var(--brand);
   color: #ffffff;
-  transition: background-color 0.2s ease, transform 0.1s ease-out;
+  transition:
+    background-color 0.2s ease,
+    transform 0.1s ease-out;
 }
 
 .btn-brand-solid:hover {
@@ -85,7 +103,27 @@
   color: var(--brand-hover);
 }
 
-html.lenis, html.lenis body {
+:where(a, button, [role="button"], [role="switch"], [tabindex]):focus-visible {
+  outline: 2px solid var(--brand);
+  outline-offset: 2px;
+}
+
+:where(input, select, textarea):focus,
+:where(input, select, textarea):focus-visible {
+  outline: none;
+}
+
+::selection {
+  background: var(--ocean-subtle);
+  color: var(--text-primary);
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+html.lenis,
+html.lenis body {
   height: auto;
 }
 
@@ -109,11 +147,16 @@ footer,
 section,
 button,
 aside {
-  transition: background-color 0.3s ease, border-color 0.3s ease, color 0.3s ease;
+  transition:
+    background-color 0.3s ease,
+    border-color 0.3s ease,
+    color 0.3s ease;
 }
 
 .card-interactive {
-  transition: transform 0.12s ease-out, background-color 0.2s ease,
+  transition:
+    transform 0.12s ease-out,
+    background-color 0.2s ease,
     border-color 0.2s ease;
 }
 

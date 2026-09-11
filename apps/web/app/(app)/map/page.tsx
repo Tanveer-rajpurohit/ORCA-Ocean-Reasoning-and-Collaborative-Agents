@@ -3,8 +3,20 @@
 import { useCallback, useEffect, useRef, useState } from "react";
 import dynamic from "next/dynamic";
 import type { Map as MapLibreMap } from "maplibre-gl";
-import { MapControls, MapLegend, MapSideList, SectorBadge } from "../../components/app/map";
+import {
+  MapControls,
+  MapLegend,
+  MapSideList,
+  SectorBadge,
+} from "../../components/app/map";
 import type { BasemapStyle, MapDataMode, MapViewMode } from "../../../types";
+
+const MOBILE_MODES: { value: MapDataMode; label: string }[] = [
+  { value: "waves", label: "Waves" },
+  { value: "wind", label: "Wind" },
+  { value: "temperature", label: "Temperature" },
+  { value: "zones", label: "Fishing zones" },
+];
 
 const SeaMap = dynamic(
   () => import("../../components/app/map/SeaMap").then((mod) => mod.SeaMap),
@@ -43,10 +55,14 @@ export default function MapPage() {
           parsed >= MIN_SIDEBAR_WIDTH &&
           parsed <= MAX_SIDEBAR_WIDTH
         ) {
-          setSidebarWidth(parsed);
+          const frameId = window.requestAnimationFrame(() =>
+            setSidebarWidth(parsed),
+          );
+          return () => window.cancelAnimationFrame(frameId);
         }
       }
     } catch {
+      // Storage can be unavailable in privacy-restricted browsers.
     }
   }, []);
 
@@ -55,17 +71,42 @@ export default function MapPage() {
     setIsDragging(true);
   }, []);
 
-  const handleResetWidth = useCallback(() => {
-    setSidebarWidth(DEFAULT_SIDEBAR_WIDTH);
+  const updateSidebarWidth = useCallback((nextWidth: number) => {
+    const clamped = Math.min(
+      MAX_SIDEBAR_WIDTH,
+      Math.max(MIN_SIDEBAR_WIDTH, nextWidth),
+    );
+    setSidebarWidth(clamped);
     try {
-      localStorage.setItem(
-        "orca_map_sidebar_width",
-        String(DEFAULT_SIDEBAR_WIDTH),
-      );
+      localStorage.setItem("orca_map_sidebar_width", String(clamped));
     } catch {
+      // Resizing still works when storage is unavailable.
     }
-    mapRef.current?.resize();
+    requestAnimationFrame(() => mapRef.current?.resize());
   }, []);
+
+  const handleResetWidth = useCallback(() => {
+    updateSidebarWidth(DEFAULT_SIDEBAR_WIDTH);
+  }, [updateSidebarWidth]);
+
+  const handleResizeKeyDown = useCallback(
+    (event: React.KeyboardEvent<HTMLDivElement>) => {
+      if (event.key === "ArrowLeft") {
+        event.preventDefault();
+        updateSidebarWidth(sidebarWidth - 20);
+      } else if (event.key === "ArrowRight") {
+        event.preventDefault();
+        updateSidebarWidth(sidebarWidth + 20);
+      } else if (event.key === "Home") {
+        event.preventDefault();
+        updateSidebarWidth(MIN_SIDEBAR_WIDTH);
+      } else if (event.key === "End") {
+        event.preventDefault();
+        updateSidebarWidth(MAX_SIDEBAR_WIDTH);
+      }
+    },
+    [sidebarWidth, updateSidebarWidth],
+  );
 
   useEffect(() => {
     if (!isDragging) return;
@@ -88,6 +129,7 @@ export default function MapPage() {
       try {
         localStorage.setItem("orca_map_sidebar_width", String(sidebarWidth));
       } catch {
+        // Resizing still works when storage is unavailable.
       }
       mapRef.current?.resize();
     };
@@ -139,10 +181,37 @@ export default function MapPage() {
         </p>
       </div>
 
-      <div className="flex-1 min-h-0 px-4 sm:px-6 lg:px-8 pb-4 sm:pb-6">
+      <div className="flex-1 min-h-0 px-4 sm:px-6 lg:px-8 pb-4 sm:pb-6 flex flex-col gap-3">
+        <div
+          className="lg:hidden -mx-1 px-1 overflow-x-auto hide-scrollbar shrink-0"
+          role="toolbar"
+          aria-label="Map data layer"
+        >
+          <div className="flex w-max min-w-full gap-2">
+            {MOBILE_MODES.map((item) => {
+              const isActive = item.value === mode;
+              return (
+                <button
+                  key={item.value}
+                  type="button"
+                  aria-pressed={isActive}
+                  onClick={() => setMode(item.value)}
+                  className={`min-h-11 whitespace-nowrap rounded-lg border px-4 text-sm font-medium font-intert transition-colors ${
+                    isActive
+                      ? "border-brand bg-brand text-white"
+                      : "border-border bg-surface text-secondary hover:border-brand/40 hover:text-primary"
+                  }`}
+                >
+                  {item.label}
+                </button>
+              );
+            })}
+          </div>
+        </div>
+
         <div
           ref={containerRef}
-          className="flex flex-col lg:flex-row h-full min-h-0 relative"
+          className="flex flex-col lg:flex-row flex-1 h-full min-h-0 relative"
         >
           <div
             className="hidden lg:flex min-h-0 shrink-0"
@@ -154,18 +223,24 @@ export default function MapPage() {
           </div>
 
           <div
+            role="separator"
+            tabIndex={0}
+            aria-label="Resize map details panel"
+            aria-orientation="vertical"
+            aria-valuemin={MIN_SIDEBAR_WIDTH}
+            aria-valuemax={MAX_SIDEBAR_WIDTH}
+            aria-valuenow={Math.round(sidebarWidth)}
+            onKeyDown={handleResizeKeyDown}
             onMouseDown={handleMouseDown}
             onDoubleClick={handleResetWidth}
-            title="Drag to resize sidebar (220px to 580px) · Double click to reset"
+            title="Drag to resize. Use arrow keys when focused. Double-click to reset."
             className={`hidden lg:flex items-center justify-center w-2.5 cursor-col-resize group select-none shrink-0 transition-colors ${
               isDragging ? "bg-brand/10" : "hover:bg-brand/5"
             }`}
           >
             <div
               className={`w-0.5 h-8 rounded-full transition-colors ${
-                isDragging
-                  ? "bg-brand"
-                  : "bg-border group-hover:bg-brand/60"
+                isDragging ? "bg-brand" : "bg-border group-hover:bg-brand/60"
               }`}
             />
           </div>

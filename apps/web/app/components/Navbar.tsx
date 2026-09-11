@@ -68,22 +68,22 @@ export default function Navbar() {
 
             <div className="hidden md:flex items-center gap-5 text-xs md:text-[13px] font-medium font-intert text-secondary">
               <Link
-                href="#advisories"
-                className="transition-colors hover:text-primary"
+                href="#product"
+                className="rounded-sm transition-colors hover:text-primary"
               >
-                Advisories
+                Product
               </Link>
               <Link
-                href="#hazards"
-                className="transition-colors hover:text-primary"
+                href="#capabilities"
+                className="rounded-sm transition-colors hover:text-primary"
               >
-                Hazards
+                Capabilities
               </Link>
               <Link
-                href="#docs"
-                className="transition-colors hover:text-primary"
+                href="#faq"
+                className="rounded-sm transition-colors hover:text-primary"
               >
-                Docs
+                FAQ
               </Link>
             </div>
           </div>

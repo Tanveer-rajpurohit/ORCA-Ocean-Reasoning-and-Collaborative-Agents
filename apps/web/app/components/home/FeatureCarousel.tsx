@@ -20,31 +20,34 @@ function FeatureCard({
   onClick: () => void;
 }) {
   return (
-    <div
+    <button
+      type="button"
       onClick={onClick}
-      className={`flex-1 overflow-hidden flex flex-col justify-start items-start transition-all duration-300 cursor-pointer border-b md:border-b-0 md:border-r border-border last:border-0 ${
-        isActive ? "bg-surface" : "bg-transparent hover:bg-surface/30"
+      aria-pressed={isActive}
+      className={`group flex-1 overflow-hidden flex flex-col justify-start items-start text-left transition-colors duration-200 cursor-pointer border-b md:border-b-0 md:border-r border-border last:border-0 ${
+        isActive ? "bg-surface" : "bg-transparent hover:bg-surface/50"
       }`}
     >
-      <div
-        className={`w-full h-1 bg-border/40 overflow-hidden ${
+      <span
+        aria-hidden="true"
+        className={`w-full h-1 bg-border/40 overflow-hidden transition-opacity ${
           isActive ? "opacity-100" : "opacity-0"
         }`}
       >
-        <div
-          className="h-1 bg-primary transition-all duration-100"
+        <span
+          className="block h-1 bg-primary transition-[width] duration-100"
           style={{ width: `${progress}%` }}
         />
-      </div>
-      <div className="px-6 py-5 w-full flex flex-col gap-2">
-        <div className="self-stretch flex justify-center flex-col text-primary text-sm font-semibold leading-6 font-intert">
+      </span>
+      <span className="px-6 py-5 w-full flex flex-col gap-2">
+        <span className="self-stretch text-primary text-sm font-semibold leading-6 font-intert transition-colors group-hover:text-brand">
           {title}
-        </div>
-        <div className="self-stretch text-muted text-[13px] font-normal leading-[22px] font-intert whitespace-pre-line">
+        </span>
+        <span className="self-stretch text-muted text-[13px] font-normal leading-[22px] font-intert whitespace-pre-line">
           {description}
-        </div>
-      </div>
-    </div>
+        </span>
+      </span>
+    </button>
   );
 }
 

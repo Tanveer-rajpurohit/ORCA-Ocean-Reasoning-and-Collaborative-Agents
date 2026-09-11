@@ -46,6 +46,8 @@ export function SeaMap({
   const mapRef = useRef<maplibregl.Map | null>(null);
   const dataMarkersRef = useRef<maplibregl.Marker[]>([]);
   const baseMarkersRef = useRef<maplibregl.Marker[]>([]);
+  const initialViewModeRef = useRef(viewMode);
+  const initialBasemapRef = useRef(basemapStyle);
   const [ready, setReady] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
@@ -56,18 +58,20 @@ export function SeaMap({
       try {
         maplibregl.setWorkerUrl("/lib/maplibre/maplibre-gl-worker.mjs");
       } catch {
+        // Older bundles resolve the worker from the package URL instead.
       }
     }
 
     let cancelled = false;
+    let hasLoaded = false;
 
     const map = new maplibregl.Map({
       container: containerRef.current,
       style: STYLE_URL,
       center: START_CENTER,
       zoom: 8.6,
-      pitch: viewMode === "3d" ? 56 : 0,
-      bearing: viewMode === "3d" ? -18 : 0,
+      pitch: initialViewModeRef.current === "3d" ? 56 : 0,
+      bearing: initialViewModeRef.current === "3d" ? -18 : 0,
       dragRotate: true,
       pitchWithRotate: true,
       maxPitch: 70,
@@ -101,13 +105,14 @@ export function SeaMap({
         event.error instanceof Error
           ? event.error.message
           : "Map failed to load";
-      if (!map.loaded() && !ready) {
+      if (!map.loaded() && !hasLoaded) {
         console.warn("MapLibre tile event:", message);
       }
     });
 
     map.on("load", () => {
       if (cancelled) return;
+      hasLoaded = true;
       window.clearTimeout(timeout);
       setError(null);
 
@@ -118,6 +123,7 @@ export function SeaMap({
           }
         }
       } catch {
+        // Style layers are absent until the stylesheet finishes loading.
       }
 
       try {
@@ -134,7 +140,8 @@ export function SeaMap({
           type: "raster",
           source: "satellite-tiles",
           layout: {
-            visibility: basemapStyle === "satellite" ? "visible" : "none",
+            visibility:
+              initialBasemapRef.current === "satellite" ? "visible" : "none",
           },
         });
 
@@ -151,10 +158,12 @@ export function SeaMap({
           type: "raster",
           source: "dark-tiles",
           layout: {
-            visibility: basemapStyle === "dark" ? "visible" : "none",
+            visibility:
+              initialBasemapRef.current === "dark" ? "visible" : "none",
           },
         });
       } catch {
+        // Raster sources can fail behind strict CSPs; vector base stays usable.
       }
 
       map.addSource("zones", { type: "geojson", data: buildZonesGeoJson() });
@@ -406,6 +415,7 @@ export function SeaMap({
         );
       }
     } catch {
+      // Layer visibility flips are safe to skip when layers are not present.
     }
   }, [basemapStyle, ready]);
 
@@ -481,7 +491,7 @@ export function SeaMap({
             <p className="text-[13px] font-medium text-primary font-intert">
               The map could not load
             </p>
-            <p className="text-[11.5px] text-muted font-intert mt-1.5 leading-relaxed break-words">
+            <p className="text-[11.5px] text-muted font-intert mt-1.5 leading-relaxed wrap-break-word">
               {error}
             </p>
             <button

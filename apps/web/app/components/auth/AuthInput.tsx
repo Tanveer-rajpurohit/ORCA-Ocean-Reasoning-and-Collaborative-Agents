@@ -38,10 +38,10 @@ export function AuthInput({
       <div className="relative">
         <input
           type={inputType}
-          className={`w-full bg-surface border rounded-xl px-4 py-2.5 text-primary font-intert placeholder:text-muted focus:outline-none focus:ring-2 focus:ring-brand focus:border-brand transition-all ${
+          className={`w-full rounded-xl border bg-surface px-4 py-2.5 text-primary font-intert placeholder:text-muted transition-colors focus:outline-none focus:ring-0 ${
             hasError
-              ? "border-danger focus:ring-danger focus:border-danger"
-              : "border-border"
+              ? "border-danger focus:border-danger"
+              : "border-border focus:border-brand"
           }`}
           {...props}
         />

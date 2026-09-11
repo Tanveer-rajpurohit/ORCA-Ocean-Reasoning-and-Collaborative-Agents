@@ -3,7 +3,12 @@
 import React, { useState, Suspense } from "react";
 import Link from "next/link";
 import { useRouter, useSearchParams } from "next/navigation";
-import { AuthLayout, AuthFormCard, AuthInput, GoogleAuthButton } from "../../components/auth";
+import {
+  AuthLayout,
+  AuthFormCard,
+  AuthInput,
+  GoogleAuthButton,
+} from "../../components/auth";
 import { useAuth } from "../../../context/AuthContext";
 
 function LoginForm() {
@@ -96,11 +101,6 @@ function LoginForm() {
             onChange={(e) => setPassword(e.target.value)}
             showPasswordToggle
             required
-            rightLabel={
-              <Link href="/forgot-password" className="link-brand text-sm">
-                Forgot password?
-              </Link>
-            }
           />
 
           <div className="flex items-center mt-2 mb-6">

@@ -13,7 +13,8 @@ const ALERT_ROWS: AlertRow[] = [
     id: "cyclone",
     icon: TriangleAlert,
     label: "Cyclone & Wind Warnings",
-    description: "Cyclone tracks, squall warnings, and wind advisories from IMD.",
+    description:
+      "Cyclone tracks, squall warnings, and wind advisories from IMD.",
   },
   {
     id: "waves",
@@ -25,13 +26,15 @@ const ALERT_ROWS: AlertRow[] = [
     id: "geofence",
     icon: MapPin,
     label: "Boundary & Geofence Warnings",
-    description: "Alerts before you cross international waters or protected zones.",
+    description:
+      "Alerts before you cross international waters or protected zones.",
   },
   {
     id: "pfz",
     icon: Newspaper,
     label: "Fishing Zone Advisories",
-    description: "The day's potential fishing zone advisory for your home coast.",
+    description:
+      "The day's potential fishing zone advisory for your home coast.",
   },
 ];
 
@@ -39,7 +42,9 @@ const DEFAULT_ON = ["cyclone", "waves", "geofence"];
 
 export function AlertPreferencesSection() {
   const [enabled, setEnabled] = useState<Record<string, boolean>>(
-    Object.fromEntries(ALERT_ROWS.map((r) => [r.id, DEFAULT_ON.includes(r.id)])),
+    Object.fromEntries(
+      ALERT_ROWS.map((r) => [r.id, DEFAULT_ON.includes(r.id)]),
+    ),
   );
   const [savedSuccess, setSavedSuccess] = useState(false);
 
@@ -52,9 +57,7 @@ export function AlertPreferencesSection() {
     <section className="rounded-2xl border border-border bg-surface p-6 font-intert">
       <div className="flex items-start justify-between mb-5">
         <div>
-          <h2 className="text-base font-medium text-primary">
-            Hazard Alerts
-          </h2>
+          <h2 className="text-base font-medium text-primary">Hazard Alerts</h2>
           <p className="text-xs text-muted mt-0.5">
             Choose which warnings reach you as push alerts, ahead of departure.
           </p>
@@ -81,13 +84,27 @@ export function AlertPreferencesSection() {
                   <row.icon size={15} />
                 </div>
                 <div>
-                  <p className="text-sm font-medium text-primary">{row.label}</p>
-                  <p className="text-xs text-muted mt-0.5">{row.description}</p>
+                  <p
+                    id={`alert-label-${row.id}`}
+                    className="text-sm font-medium text-primary"
+                  >
+                    {row.label}
+                  </p>
+                  <p
+                    id={`alert-description-${row.id}`}
+                    className="text-xs text-muted mt-0.5 leading-relaxed"
+                  >
+                    {row.description}
+                  </p>
                 </div>
               </div>
 
               <button
                 type="button"
+                role="switch"
+                aria-checked={isActive}
+                aria-labelledby={`alert-label-${row.id}`}
+                aria-describedby={`alert-description-${row.id}`}
                 onClick={() =>
                   setEnabled((prev) => ({ ...prev, [row.id]: !prev[row.id] }))
                 }
@@ -98,8 +115,9 @@ export function AlertPreferencesSection() {
                 }`}
               >
                 <span
-                  className={`absolute top-0.5 w-5 h-5 rounded-full bg-white shadow-sm transition-transform ${
-                    isActive ? "left-5.5" : "left-0.5"
+                  aria-hidden="true"
+                  className={`absolute top-0.5 left-0.5 w-5 h-5 rounded-full bg-white shadow-sm transition-transform duration-200 ${
+                    isActive ? "translate-x-5" : "translate-x-0"
                   }`}
                 />
               </button>
