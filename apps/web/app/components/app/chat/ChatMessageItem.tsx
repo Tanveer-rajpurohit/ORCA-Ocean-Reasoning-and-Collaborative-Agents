@@ -295,7 +295,7 @@ export function ChatMessageItem({
               className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-lg text-xs text-muted hover:text-primary hover:bg-surface-muted transition-colors cursor-pointer"
             >
               {copied ? (
-                <Check size={13} className="text-ocean" />
+                <Check size={13} className="text-brand" />
               ) : (
                 <Copy size={13} />
               )}

@@ -237,7 +237,7 @@ export function ChatInput({
 
   return (
     <div className="w-full">
-      <div className="rounded-xl border border-border bg-surface shadow-xs transition-all focus-within:border-brand/50 focus-within:bg-surface">
+      <div className="rounded-xl border border-border-subtle bg-surface shadow-xs transition-all duration-200 focus-within:border-brand/50 focus-within:ring-2 focus-within:ring-brand/10">
         <div className="px-4 pt-3 pb-2">
           <textarea
             ref={textareaRef}
@@ -273,7 +273,7 @@ export function ChatInput({
                 onClick={toggleSpeechRecognition}
                 title={isListening ? "Stop listening" : "Speak your question"}
                 aria-label={isListening ? "Stop listening" : "Speak"}
-                className={`flex items-center gap-1.5 px-3 h-8 rounded-md text-xs font-medium transition-all cursor-pointer ${
+                className={`flex items-center gap-1.5 px-3 h-8 rounded-md text-xs font-medium transition-all duration-200 cursor-pointer active:scale-95 ${
                   isListening
                     ? "bg-red-500 text-white animate-pulse shadow-xs"
                     : "text-muted hover:text-secondary hover:bg-surface-muted"

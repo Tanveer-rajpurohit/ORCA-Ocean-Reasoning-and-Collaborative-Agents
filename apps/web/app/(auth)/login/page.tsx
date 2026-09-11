@@ -9,6 +9,7 @@ import {
   AuthInput,
   GoogleAuthButton,
 } from "../../components/auth";
+import { ThemeSwitcher } from "../../../components/ui/ThemeSwitcher";
 import { useAuth } from "../../../context/AuthContext";
 
 function LoginForm() {
@@ -59,6 +60,9 @@ function LoginForm() {
 
   return (
     <AuthLayout>
+      <div className="fixed top-6 right-6 z-50">
+        <ThemeSwitcher />
+      </div>
       <AuthFormCard>
         <div className="mb-8">
           <h1 className="font-instrument text-3xl text-primary mb-2">

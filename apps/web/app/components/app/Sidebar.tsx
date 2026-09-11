@@ -23,6 +23,7 @@ import { ChatSessionItem } from "./chat";
 import { useAuth } from "../../../context/AuthContext";
 import { useLocalStorageState } from "../../../hooks";
 import { useChatStore } from "../../../stores";
+import { ThemeSwitcher } from "../../../components/ui/ThemeSwitcher";
 import type { ProfileData, ChatSessionSummary } from "../../../types";
 import { DEFAULT_PROFILE } from "../../../types";
 
@@ -280,12 +281,12 @@ export function Sidebar({ children }: SidebarProps) {
       </aside>
 
       <div className="flex-1 flex flex-col min-w-0 overflow-hidden">
-        <header className="h-14 shrink-0 flex items-center justify-between px-4 border-b border-border bg-surface md:hidden">
+        <header className="h-14 shrink-0 flex items-center justify-between px-4 border-b border-border bg-surface">
           <button
             type="button"
             aria-label="Open sidebar"
             onClick={() => setMobileOpen(true)}
-            className="flex items-center justify-center w-8 h-8 rounded-lg text-muted hover:text-primary hover:bg-surface-muted transition-colors"
+            className="flex md:hidden items-center justify-center w-8 h-8 rounded-lg text-muted hover:text-primary hover:bg-surface-muted transition-colors"
           >
             <Menu size={18} />
           </button>
@@ -294,9 +295,9 @@ export function Sidebar({ children }: SidebarProps) {
             className="flex items-center gap-1.5 text-primary font-instrument italic text-lg tracking-tight"
           >
             <AgentOrb size={16} className="not-italic text-brand" />
-            <span>ORCA</span>
+            <span className="hidden sm:inline">ORCA</span>
           </Link>
-          <div className="w-8" />
+          <ThemeSwitcher />
         </header>
 
         <main className="flex-1 overflow-hidden flex flex-col min-h-0 bg-bg">

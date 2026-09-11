@@ -25,7 +25,8 @@
     "Times New Roman", serif;
 }
 
-:root {
+/* Default Theme (Ocean) */
+:root, [data-theme='default'] {
   --bg: #ffffff;
   --surface: #ffffff;
   --surface-muted: #f3f7f7;
@@ -48,6 +49,84 @@
   --danger: #b94a3c;
   --loader-track: #e2e8f0;
   --loader-fill: #728695;
+}
+
+/* Tropical Lush - Fresh & Natural */
+[data-theme='tropical-lush'] {
+  --bg: #F0F7F4;
+  --surface: #FFFFFF;
+  --surface-muted: #E6F2EF;
+  --text-primary: #1B3D33;
+  --text-secondary: #3A5A4E;
+  --text-muted: #7D9C8F;
+  --border: #D0E0DB;
+  --border-subtle: #EBF2F0;
+  --accent: #0D9488;
+  --brand: #0F766E;
+  --brand-2: #14B8A6;
+  --brand-hover: #0D9488;
+  --brand-subtle: rgba(15, 118, 110, 0.1);
+  --brand-gradient: linear-gradient(135deg, #0F766E, #14B8A6);
+  --ocean: #0D9488;
+  --ocean-2: #14B8A6;
+  --ocean-subtle: rgba(13, 148, 136, 0.1);
+  --success: #059669;
+  --warning: #D97706;
+  --danger: #DC2626;
+  --loader-track: #ECFDF5;
+  --loader-fill: #0D9488;
+}
+
+/* Clay White - Organic & Tactile */
+[data-theme='clay-white'] {
+  --bg: #fdfcfb;
+  --surface: #ffffff;
+  --surface-muted: #f7f3f0;
+  --text-primary: #433e3b;
+  --text-secondary: #6b645f;
+  --text-muted: #a39b95;
+  --border: #e8e2dc;
+  --border-subtle: #f2ede8;
+  --accent: #c27a67;
+  --brand: #a6634c;
+  --brand-2: #d9a58f;
+  --brand-hover: #8c523d;
+  --brand-subtle: rgba(166, 99, 76, 0.1);
+  --brand-gradient: linear-gradient(135deg, #a6634c, #d9a58f);
+  --ocean: #8b7e74;
+  --ocean-2: #b8ada3;
+  --ocean-subtle: rgba(139, 126, 116, 0.1);
+  --success: #6b8e23;
+  --warning: #c2a13e;
+  --danger: #b22222;
+  --loader-track: #f7f3f0;
+  --loader-fill: #a6634c;
+}
+
+/* Sage Harbor - Organic Sophistication */
+[data-theme='sage-harbor'] {
+  --bg: #F7F8F6;
+  --surface: #FFFFFF;
+  --surface-muted: #EEF0ED;
+  --text-primary: #4A5D4E;
+  --text-secondary: #6B7D6D;
+  --text-muted: #A3B0A3;
+  --border: #DDE2DD;
+  --border-subtle: #F2F4F2;
+  --accent: #6B8E23;
+  --brand: #4A5D4E;
+  --brand-2: #8A9B8A;
+  --brand-hover: #3A4D3E;
+  --brand-subtle: rgba(74, 93, 78, 0.06);
+  --brand-gradient: linear-gradient(135deg, #4A5D4E, #8A9B8A);
+  --ocean: #7C9482;
+  --ocean-2: #C6CDC6;
+  --ocean-subtle: rgba(124, 148, 130, 0.08);
+  --success: #5F7C52;
+  --warning: #B5A642;
+  --danger: #B26B6B;
+  --loader-track: #EEF0ED;
+  --loader-fill: #4A5D4E;
 }
 
 .brand-glow {
@@ -129,10 +208,6 @@ html.lenis body {
 
 .lenis.lenis-smooth {
   scroll-behavior: auto !important;
-}
-
-.lenis.lenis-smooth [data-lenis-prevent] {
-  overscroll-behavior: contain;
 }
 
 .lenis.lenis-stopped {

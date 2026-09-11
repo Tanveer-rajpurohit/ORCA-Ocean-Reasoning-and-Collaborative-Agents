@@ -3,6 +3,7 @@
 import { useEffect, useState } from "react";
 import Link from "next/link";
 import { AgentOrb } from "./AgentOrb";
+import { ThemeSwitcher } from "../../components/ui/ThemeSwitcher";
 
 export default function Navbar() {
   const [progress, setProgress] = useState(0);
@@ -89,6 +90,7 @@ export default function Navbar() {
           </div>
 
           <div className="flex items-center gap-2.5">
+            <ThemeSwitcher />
             <Link
               href="/login"
               className="px-4 py-1.5 bg-brand text-white shadow-xs rounded-xl flex justify-center items-center text-xs md:text-[13px] font-medium font-intert hover:opacity-90 active:scale-95 transition-all"

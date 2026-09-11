@@ -48,7 +48,7 @@ export function ChatSuggestions({ onSelect }: ChatSuggestionsProps) {
             key={item.id}
             type="button"
             onClick={() => onSelect(item.prompt)}
-            className="card-interactive flex items-start gap-3 p-3.5 rounded-xl border border-border bg-surface hover:bg-surface-muted/70 hover:border-brand/30 text-left group cursor-pointer"
+            className="card-interactive flex items-start gap-3 p-3.5 rounded-xl border border-border-subtle bg-surface shadow-xs hover:bg-surface-muted/70 hover:border-brand/30 text-left group cursor-pointer transition-all duration-200 active:scale-[0.98]"
           >
             <Icon
               size={18}

@@ -28,9 +28,9 @@ const BRIEFING_ITEMS: BriefingItem[] = [
 
 export function BriefingCard() {
   return (
-    <section className="rounded-xl border border-border bg-surface overflow-hidden flex flex-col">
-      <div className="px-5 py-3.5 border-b border-border">
-        <h2 className="text-sm font-medium text-primary">Agent briefing</h2>
+    <section className="rounded-xl border border-border-subtle bg-surface overflow-hidden flex flex-col shadow-xs transition-all duration-200 hover:border-border">
+      <div className="px-5 py-3.5 border-b border-border-subtle">
+        <h2 className="text-sm font-medium text-primary font-instrument">Agent briefing</h2>
         <p className="text-[11px] text-muted font-intert mt-0.5">
           What ORCA found while you were away
         </p>
@@ -45,7 +45,7 @@ export function BriefingCard() {
             <item.icon
               size={15}
               className={`shrink-0 mt-0.5 ${
-                item.tone === "warm" ? "text-[#B89465]" : "text-ocean"
+                item.tone === "warm" ? "text-brand-2" : "text-ocean"
               }`}
             />
             <div className="min-w-0">
@@ -56,7 +56,7 @@ export function BriefingCard() {
                 {item.detail}
               </p>
               <p className="text-[10px] text-muted font-intert mt-1.5 flex items-center gap-1.5">
-                <span className="w-1 h-1 rounded-full bg-ocean shrink-0" />
+                <span className="w-1 h-1 rounded-full bg-brand shrink-0" />
                 {item.source}
               </p>
             </div>

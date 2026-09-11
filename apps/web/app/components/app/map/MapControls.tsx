@@ -23,7 +23,7 @@ interface MapChromeProps {
 }
 
 const CHROME =
-  "rounded-xl border border-border bg-surface/90 backdrop-blur-md shadow-sm";
+  "rounded-xl border border-border-subtle bg-surface/90 backdrop-blur-md shadow-xs";
 
 const BASEMAP_OPTIONS = [
   {
@@ -69,7 +69,7 @@ export function MapControls({
               onClick={() => onChangeBasemapStyle(option.id)}
               aria-pressed={isActive}
               title={option.title}
-              className={`w-8 h-8 grid place-items-center transition-colors cursor-pointer ${
+              className={`w-8 h-8 grid place-items-center transition-all duration-200 cursor-pointer active:scale-95 ${
                 isActive
                   ? "bg-brand text-white shadow-xs"
                   : "text-secondary hover:text-primary hover:bg-surface-muted"
@@ -87,7 +87,7 @@ export function MapControls({
           onClick={onZoomIn}
           aria-label="Zoom in"
           title="Zoom in"
-          className="w-8 h-8 grid place-items-center text-secondary hover:text-primary hover:bg-surface-muted transition-colors cursor-pointer"
+          className="w-8 h-8 grid place-items-center text-secondary hover:text-primary hover:bg-surface-muted transition-all duration-200 cursor-pointer active:scale-95"
         >
           <Plus size={15} />
         </button>
@@ -97,7 +97,7 @@ export function MapControls({
           onClick={onZoomOut}
           aria-label="Zoom out"
           title="Zoom out"
-          className="w-8 h-8 grid place-items-center text-secondary hover:text-primary hover:bg-surface-muted transition-colors cursor-pointer"
+          className="w-8 h-8 grid place-items-center text-secondary hover:text-primary hover:bg-surface-muted transition-all duration-200 cursor-pointer active:scale-95"
         >
           <Minus size={15} />
         </button>

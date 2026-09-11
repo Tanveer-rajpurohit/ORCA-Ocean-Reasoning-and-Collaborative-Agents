@@ -21,9 +21,9 @@ export function StatCard({
   footnote,
 }: StatCardProps) {
   return (
-    <section className="rounded-xl border border-border bg-surface p-4 min-w-0">
+    <section className="rounded-xl border border-border-subtle bg-surface p-4 min-w-0 shadow-xs transition-all duration-200 hover:border-border hover:shadow-sm active:scale-[0.98] cursor-default">
       <div className="flex items-center justify-between gap-2 mb-1.5">
-        <p className="text-xs text-muted truncate">{label}</p>
+        <p className="text-xs text-muted truncate font-intert">{label}</p>
         <Icon size={14} className="text-muted shrink-0" />
       </div>
 

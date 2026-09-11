@@ -172,7 +172,7 @@ export default function MapPage() {
         isDragging ? "select-none cursor-col-resize" : ""
       }`}
     >
-      <div className="shrink-0 px-4 sm:px-6 lg:px-8 pt-5 sm:pt-6 pb-3">
+      <div className="shrink-0 px-6 sm:px-10 lg:px-16 py-8 sm:py-10 pb-3">
         <h1 className="text-2xl sm:text-3xl font-instrument text-primary tracking-tight">
           Sea map
         </h1>
@@ -181,7 +181,8 @@ export default function MapPage() {
         </p>
       </div>
 
-      <div className="flex-1 min-h-0 px-4 sm:px-6 lg:px-8 pb-4 sm:pb-6 flex flex-col gap-3">
+
+      <div className="flex-1 min-h-0 px-6 sm:px-10 lg:px-16 pb-4 sm:pb-6 flex flex-col gap-3">
         <div
           className="lg:hidden -mx-1 px-1 overflow-x-auto hide-scrollbar shrink-0"
           role="toolbar"

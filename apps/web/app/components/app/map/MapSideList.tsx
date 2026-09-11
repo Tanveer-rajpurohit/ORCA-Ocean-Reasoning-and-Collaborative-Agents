@@ -147,7 +147,7 @@ export function MapSideList({ mode, onChangeMode }: MapSideListProps) {
         </p>
       </div>
 
-      <div className="py-2 border-b border-border shrink-0 space-y-1">
+      <div className="py-2 border-b border-border-subtle shrink-0 space-y-1">
         {ROWS.map((row, index) => {
           const isActive = row.mode === mode;
           return (
@@ -156,9 +156,9 @@ export function MapSideList({ mode, onChangeMode }: MapSideListProps) {
               type="button"
               onClick={() => onChangeMode(row.mode)}
               aria-pressed={isActive}
-              className={`group w-full flex items-center gap-3 px-3 py-2.5 text-left rounded-lg transition-colors cursor-pointer ${
+              className={`group w-full flex items-center gap-3 px-3 py-2.5 text-left rounded-lg transition-all duration-200 active:scale-[0.98] cursor-pointer ${
                 isActive
-                  ? "bg-brand/[0.06] text-brand"
+                  ? "bg-brand/[0.06] text-brand shadow-xs"
                   : "hover:bg-surface-muted/60 text-secondary hover:text-primary"
               }`}
             >
@@ -204,7 +204,7 @@ export function MapSideList({ mode, onChangeMode }: MapSideListProps) {
         })}
       </div>
 
-      <div className="px-1.5 pt-3 pb-3 border-b border-border shrink-0">
+      <div className="px-1.5 pt-3 pb-3 border-b border-border-subtle shrink-0">
         <p className="font-mono text-[10px] uppercase tracking-[0.18em] text-muted mb-2">
           Other data
         </p>
@@ -247,7 +247,7 @@ export function MapSideList({ mode, onChangeMode }: MapSideListProps) {
       <div className="pt-3 mt-auto shrink-0 pb-1">
         <Link
           href={`/chat?q=${encodeURIComponent(query)}`}
-          className="w-full flex items-center justify-between gap-2 px-3 py-2 rounded-lg border border-border bg-surface text-xs font-intert font-medium text-secondary hover:text-primary hover:border-brand/40 transition-colors cursor-pointer"
+          className="w-full flex items-center justify-between gap-2 px-3 py-2 rounded-lg border border-border-subtle bg-surface text-xs font-intert font-medium text-secondary hover:text-primary hover:border-brand/40 transition-all duration-200 active:scale-[0.98] cursor-pointer shadow-xs"
         >
           <div className="flex items-center gap-2">
             <Bot size={14} className="text-brand shrink-0" />

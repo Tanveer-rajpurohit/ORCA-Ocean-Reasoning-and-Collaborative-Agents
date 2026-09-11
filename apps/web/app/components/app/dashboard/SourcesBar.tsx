@@ -12,23 +12,24 @@ export function SourcesBar() {
   };
 
   return (
-    <section className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 rounded-xl border border-border bg-surface-muted px-5 py-4 mt-5 font-intert">
+    <section className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 rounded-xl border border-border-subtle bg-surface-muted px-5 py-4 mt-5 font-intert shadow-xs">
       <div className="flex items-center gap-4 flex-wrap">
         <span className="text-[9px] tracking-[0.14em] uppercase text-muted max-w-[128px] leading-relaxed">
           Grounded in official sources
         </span>
-        <span className="text-[13px] font-bold tracking-wide text-[#7E94A3]">
+        <span className="text-[13px] font-bold tracking-wide text-secondary">
           INCOIS
         </span>
         <span className="w-px h-3.5 bg-border" />
-        <span className="text-[13px] font-bold tracking-wide text-[#7E94A3]">
+        <span className="text-[13px] font-bold tracking-wide text-secondary">
           IMD
         </span>
         <span className="w-px h-3.5 bg-border" />
-        <span className="text-[14px] italic font-bold text-[#7E94A3]">
+        <span className="text-[14px] italic font-bold text-secondary">
           ISRO
         </span>
       </div>
+
 
       <button
         type="button"
