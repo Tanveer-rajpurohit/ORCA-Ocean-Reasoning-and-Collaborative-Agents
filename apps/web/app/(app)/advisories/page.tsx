@@ -1,15 +1,26 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useMemo } from "react";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import { AdvisoryItem } from "../../components/app/advisories/AdvisoryItem";
 import { MOCK_ADVISORIES, ADVISORY_PAGE_SIZE } from "../../../lib/advisoriesData";
 
 export default function AdvisoriesPage() {
   const [page, setPage] = useState(0);
+  const [filter, setFilter] = useState<"All" | "PFZ" | "OSF" | "High Priority">("All");
 
-  const hero = MOCK_ADVISORIES[0];
-  const list = MOCK_ADVISORIES.slice(1);
+  const filteredAdvisories = useMemo(() => {
+    return MOCK_ADVISORIES.filter((adv) => {
+      if (filter === "All") return true;
+      if (filter === "PFZ") return adv.type === "PFZ";
+      if (filter === "OSF") return adv.type === "OSF";
+      if (filter === "High Priority") return adv.severity === "high";
+      return true;
+    });
+  }, [filter]);
+
+  const hero = filteredAdvisories[0];
+  const list = filteredAdvisories.slice(1);
 
   const pageCount = Math.max(1, Math.ceil(list.length / ADVISORY_PAGE_SIZE));
   const safePage = Math.min(page, pageCount - 1);
@@ -21,6 +32,8 @@ export default function AdvisoriesPage() {
   const goToPage = (next: number) => {
     setPage(Math.max(0, Math.min(pageCount - 1, next)));
   };
+
+  const TABS = ["All", "PFZ", "OSF", "High Priority"] as const;
 
   if (!hero) {
     return (
@@ -50,6 +63,25 @@ export default function AdvisoriesPage() {
             Daily fishing zone (PFZ) and ocean state (OSF) updates for your region.
           </p>
         </header>
+
+        <div className="flex flex-wrap items-center gap-2 mb-8">
+          {TABS.map((tab) => (
+            <button
+              key={tab}
+              onClick={() => {
+                setFilter(tab);
+                setPage(0);
+              }}
+              className={`px-3 py-1.5 rounded-full text-xs font-medium font-intert transition-colors border cursor-pointer ${
+                filter === tab
+                  ? "bg-brand text-white border-brand"
+                  : "bg-surface text-secondary border-border hover:bg-surface-muted hover:text-primary"
+              }`}
+            >
+              {tab}
+            </button>
+          ))}
+        </div>
 
         <div className="space-y-8">
           {/* Hero Section */}

@@ -163,3 +163,42 @@ export function buildZonesGeoJson(): ZoneFeatureCollection {
     })),
   };
 }
+
+export interface SstHeatmapPoint {
+  coordinates: Coordinate;
+  temperature: number;
+  weight: number;
+}
+
+export const SST_HEATMAP_POINTS: SstHeatmapPoint[] = [
+  { coordinates: [75.502, 9.320], temperature: 28.88, weight: 0.72 },
+  { coordinates: [76.036, 9.568], temperature: 28.13, weight: 0.59 },
+  { coordinates: [75.484, 9.712], temperature: 29.30, weight: 0.79 },
+  { coordinates: [76.552, 9.482], temperature: 27.10, weight: 0.40 },
+  { coordinates: [75.422, 9.058], temperature: 29.17, weight: 0.77 },
+  { coordinates: [75.563, 8.603], temperature: 28.83, weight: 0.71 },
+  { coordinates: [75.552, 9.323], temperature: 29.02, weight: 0.74 },
+  { coordinates: [76.808, 8.933], temperature: 27.07, weight: 0.40 },
+  { coordinates: [76.053, 9.641], temperature: 28.28, weight: 0.61 },
+  { coordinates: [76.499, 10.690], temperature: 27.61, weight: 0.49 },
+  { coordinates: [76.761, 10.209], temperature: 27.07, weight: 0.40 },
+  { coordinates: [75.394, 9.991], temperature: 29.27, weight: 0.78 },
+  { coordinates: [76.668, 8.643], temperature: 27.28, weight: 0.44 },
+  { coordinates: [76.777, 9.178], temperature: 26.78, weight: 0.35 },
+  { coordinates: [76.514, 9.344], temperature: 27.57, weight: 0.49 },
+  { coordinates: [75.497, 9.024], temperature: 28.89, weight: 0.72 },
+  { coordinates: [76.698, 8.934], temperature: 26.93, weight: 0.38 },
+  { coordinates: [75.877, 9.848], temperature: 28.41, weight: 0.63 },
+  { coordinates: [75.400, 9.305], temperature: 29.31, weight: 0.79 },
+  { coordinates: [76.382, 8.779], temperature: 27.61, weight: 0.49 },
+  { coordinates: [76.749, 8.946], temperature: 26.80, weight: 0.35 },
+  { coordinates: [76.575, 9.125], temperature: 27.25, weight: 0.43 },
+  { coordinates: [75.967, 9.176], temperature: 28.26, weight: 0.61 },
+  { coordinates: [76.590, 10.630], temperature: 27.22, weight: 0.43 },
+  { coordinates: [75.818, 9.373], temperature: 28.36, weight: 0.63 },
+  { coordinates: [75.235, 9.024], temperature: 29.83, weight: 0.88 },
+  { coordinates: [76.989, 10.031], temperature: 26.70, weight: 0.33 },
+  { coordinates: [76.185, 9.957], temperature: 27.68, weight: 0.51 },
+  { coordinates: [75.979, 10.917], temperature: 28.13, weight: 0.58 },
+  { coordinates: [76.286, 10.504], temperature: 27.55, weight: 0.48 },
+];

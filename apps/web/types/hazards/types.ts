@@ -1,11 +1,15 @@
-export type HazardLevel = 'warning' | 'danger';
+export type HazardLevel = 'danger' | 'warning' | 'info';
 
 export interface Hazard {
   id: string;
   title: string;
   description: string;
   level: HazardLevel;
-  distance: number; // Distance in kilometers from current location
+  distance: number;
   timestamp: string;
   coordinates: { lat: number; lng: number };
+  action: string;
+  source: string;
+  affectedArea: string;
+  validUntil: string;
 }

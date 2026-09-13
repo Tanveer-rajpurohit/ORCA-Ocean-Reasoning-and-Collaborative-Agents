@@ -9,6 +9,7 @@ import {
   IMBL_LINE,
   NAV_ROUTE,
   TEMP_POINTS,
+  SST_HEATMAP_POINTS,
   VESSEL_POSITION,
   WAVE_POINTS,
   WIND_POINTS,
@@ -46,6 +47,7 @@ export function SeaMap({
   const mapRef = useRef<maplibregl.Map | null>(null);
   const dataMarkersRef = useRef<maplibregl.Marker[]>([]);
   const baseMarkersRef = useRef<maplibregl.Marker[]>([]);
+  const initialModeRef = useRef(mode);
   const initialViewModeRef = useRef(viewMode);
   const initialBasemapRef = useRef(basemapStyle);
   const [ready, setReady] = useState(false);
@@ -235,6 +237,46 @@ export function SeaMap({
         },
       });
 
+      map.addSource("sst-heatmap", {
+        type: "geojson",
+        data: {
+          type: "FeatureCollection",
+          features: SST_HEATMAP_POINTS.map((pt) => ({
+            type: "Feature",
+            properties: { temperature: pt.temperature, weight: pt.weight },
+            geometry: { type: "Point", coordinates: pt.coordinates },
+          })),
+        },
+      });
+
+      map.addLayer({
+        id: "sst-heatmap-layer",
+        type: "heatmap",
+        source: "sst-heatmap",
+        layout: {
+          visibility: initialModeRef.current === "temperature" ? "visible" : "none",
+        },
+        paint: {
+          "heatmap-weight": ["get", "weight"],
+          "heatmap-intensity": ["interpolate", ["linear"], ["zoom"], 6, 0.4, 10, 0.8, 14, 1.4],
+          "heatmap-color": [
+            "interpolate",
+            ["linear"],
+            ["heatmap-density"],
+            0, "rgba(0,0,0,0)",
+            0.1, "rgba(20,120,160,0.15)",
+            0.25, "#4db8a4",
+            0.45, "#7ecba1",
+            0.6, "#f2e55a",
+            0.75, "#f0a843",
+            0.9, "#e8665d",
+            1.0, "#c93545"
+          ],
+          "heatmap-radius": ["interpolate", ["linear"], ["zoom"], 6, 30, 10, 50, 14, 80],
+          "heatmap-opacity": 0.55
+        }
+      });
+
       setReady(true);
     });
 
@@ -318,6 +360,14 @@ export function SeaMap({
     for (const marker of dataMarkersRef.current) marker.remove();
     dataMarkersRef.current = [];
 
+    if (map.getLayer("sst-heatmap-layer")) {
+      map.setLayoutProperty(
+        "sst-heatmap-layer",
+        "visibility",
+        mode === "temperature" ? "visible" : "none"
+      );
+    }
+
     if (mode === "waves") {
       for (const point of WAVE_POINTS) {
         const el = element(
@@ -377,23 +427,38 @@ export function SeaMap({
 
   useEffect(() => {
     const map = mapRef.current;
-    if (!map) return;
+    if (!map || !ready) return;
     if (viewMode === "3d") {
       map.dragRotate.enable();
       map.touchPitch.enable();
+
+      if (!map.getSource("terrain-dem")) {
+        map.addSource("terrain-dem", {
+          type: "raster-dem",
+          tiles: [
+            "https://s3.amazonaws.com/elevation-tiles-prod/terrarium/{z}/{x}/{y}.png",
+          ],
+          tileSize: 256,
+          maxzoom: 14,
+          encoding: "terrarium",
+        });
+      }
+      map.setTerrain({ source: "terrain-dem", exaggeration: 2.5 });
+
       map.easeTo({
         pitch: 58,
         bearing: -18,
         duration: 900,
       });
     } else {
+      map.setTerrain(null);
       map.easeTo({
         pitch: 0,
         bearing: 0,
         duration: 700,
       });
     }
-  }, [viewMode]);
+  }, [viewMode, ready]);
 
   useEffect(() => {
     const map = mapRef.current;
@@ -421,7 +486,7 @@ export function SeaMap({
 
   return (
     <div className="relative h-full w-full overflow-hidden bg-[#cce2e9]">
-      <div className="absolute inset-0 pointer-events-none opacity-40">
+      <div className={`absolute inset-0 pointer-events-none transition-opacity duration-700 ${ready ? "opacity-0" : "opacity-40"}`}>
         <svg
           viewBox="0 0 800 370"
           preserveAspectRatio="xMidYMid slice"
