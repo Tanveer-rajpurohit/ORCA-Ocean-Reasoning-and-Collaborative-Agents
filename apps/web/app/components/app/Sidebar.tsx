@@ -23,7 +23,6 @@ import { ChatSessionItem } from "./chat";
 import { useAuth } from "../../../context/AuthContext";
 import { useLocalStorageState } from "../../../hooks";
 import { useChatStore } from "../../../stores";
-import { ThemeSwitcher } from "../../../components/ui/ThemeSwitcher";
 import type { ProfileData, ChatSessionSummary } from "../../../types";
 import { DEFAULT_PROFILE } from "../../../types";
 
@@ -297,7 +296,6 @@ export function Sidebar({ children }: SidebarProps) {
             <AgentOrb size={16} className="not-italic text-brand" />
             <span className="hidden sm:inline">ORCA</span>
           </Link>
-          <ThemeSwitcher />
         </header>
 
         <main className="flex-1 overflow-hidden flex flex-col min-h-0 bg-bg">

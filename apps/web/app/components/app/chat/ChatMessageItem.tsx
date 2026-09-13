@@ -89,7 +89,7 @@ export function ChatMessageItem({
               remarkPlugins={[remarkGfm]}
               components={{
                 h1: ({ children }) => (
-                  <h1 className="text-xl sm:text-2xl font-bold font-instrument text-primary mt-6 mb-3 tracking-tight">
+                  <h1 className="text-xl sm:text-2xl font-normal font-instrument text-primary mt-6 mb-3 tracking-tight">
                     {children}
                   </h1>
                 ),
@@ -153,10 +153,10 @@ export function ChatMessageItem({
                     );
                   if (isVerdict) {
                     const tone = /safe/i.test(rawText)
-                      ? "bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 border-emerald-500/20"
+                      ? "bg-success/10 text-success border-success/20"
                       : /caution/i.test(rawText)
-                        ? "bg-amber-500/10 text-amber-600 dark:text-amber-400 border-amber-500/20"
-                        : "bg-red-500/10 text-red-600 dark:text-red-400 border-red-500/20";
+                        ? "bg-warning/10 text-warning border-warning/20"
+                        : "bg-danger/10 text-danger border-danger/20";
                     return (
                       <span
                         className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-[11.5px] font-semibold border ${tone}`}

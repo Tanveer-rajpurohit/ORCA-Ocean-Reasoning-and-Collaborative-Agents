@@ -187,14 +187,14 @@ export default function DashboardPage() {
         </div>
 
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-4">
-          <div className="lg:col-span-2 rounded-xl border border-border bg-surface overflow-hidden">
-            <div className="px-5 py-3.5 border-b border-border">
-              <h2 className="text-sm font-medium text-primary">
+          <div className="lg:col-span-2 rounded-xl border border-border-subtle bg-surface overflow-hidden">
+            <div className="px-5 py-4 border-b border-border-subtle">
+              <p className="text-[10px] font-semibold tracking-[0.16em] uppercase text-muted mb-1">
+                Wave and swell forecast
+              </p>
+              <h2 className="text-lg font-instrument text-primary leading-tight tracking-tight">
                 Ocean outlook
               </h2>
-              <p className="text-[11px] text-muted font-intert mt-0.5">
-                Wave and swell forecast for your coast
-              </p>
             </div>
             <div className="px-5 pb-5">
               <MarineChartCard data={FORECAST} className="mt-4" />

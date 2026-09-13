@@ -29,11 +29,13 @@ const BRIEFING_ITEMS: BriefingItem[] = [
 export function BriefingCard() {
   return (
     <section className="rounded-xl border border-border-subtle bg-surface overflow-hidden flex flex-col shadow-xs transition-all duration-200 hover:border-border">
-      <div className="px-5 py-3.5 border-b border-border-subtle">
-        <h2 className="text-sm font-medium text-primary font-instrument">Agent briefing</h2>
-        <p className="text-[11px] text-muted font-intert mt-0.5">
-          What ORCA found while you were away
+      <div className="px-5 py-4 border-b border-border-subtle">
+        <p className="text-[10px] font-semibold tracking-[0.16em] uppercase text-muted mb-1">
+          While you were away
         </p>
+        <h2 className="text-lg font-instrument text-primary leading-tight tracking-tight">
+          Agent briefing
+        </h2>
       </div>
 
       <div className="flex-1 divide-y divide-border">
@@ -49,13 +51,13 @@ export function BriefingCard() {
               }`}
             />
             <div className="min-w-0">
-              <p className="text-[13px] text-primary leading-snug">
+              <p className="text-[13px] font-medium text-primary font-intert leading-snug">
                 {item.title}
               </p>
               <p className="text-xs text-muted font-intert mt-1 leading-relaxed">
                 {item.detail}
               </p>
-              <p className="text-[10px] text-muted font-intert mt-1.5 flex items-center gap-1.5">
+              <p className="text-[10px] tracking-wide text-muted font-intert mt-1.5 flex items-center gap-1.5">
                 <span className="w-1 h-1 rounded-full bg-brand shrink-0" />
                 {item.source}
               </p>

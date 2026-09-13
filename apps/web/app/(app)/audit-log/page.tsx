@@ -101,7 +101,7 @@ export default function AuditLogPage() {
                   }`}
                 >
                   <span className={`font-mono text-base tracking-[-0.06em] w-6 shrink-0 transition-colors ${
-                    isExpanded ? "text-brand" : "text-border group-hover:text-brand/50"
+                    isExpanded ? "text-brand" : "text-muted group-hover:text-brand"
                   }`}>
                     {String(index + 1).padStart(2, "0")}
                   </span>

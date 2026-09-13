@@ -104,7 +104,7 @@ export function ProfileAvatarSection({
               <h2 className="text-base sm:text-lg font-semibold text-primary">
                 {name || "Fisher"}
               </h2>
-              <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 text-[11px] font-medium border border-emerald-500/20">
+              <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full bg-success/10 text-success text-[11px] font-medium border border-success/20">
                 <ShieldCheck size={11} />
                 <span>RegisteredFisher</span>
               </span>
@@ -132,7 +132,7 @@ export function ProfileAvatarSection({
             <button
               type="button"
               onClick={() => onAvatarChange(null)}
-              className="px-3 py-1.5 rounded-xl border border-border bg-bg hover:bg-red-500/10 hover:border-red-500/30 text-xs font-medium text-red-500 transition-colors cursor-pointer flex items-center gap-1"
+              className="px-3 py-1.5 rounded-xl border border-border bg-bg hover:bg-danger/10 hover:border-danger/30 text-xs font-medium text-danger transition-colors cursor-pointer flex items-center gap-1"
             >
               <Trash2 size={12} />
               <span>Remove</span>

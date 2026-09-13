@@ -495,6 +495,307 @@ Head out early, work the morning window, and plan to be back by 14:00 when the s
 Try "what about further north" or "what if I leave at noon" and I will keep your port and vessel in mind.`,
 };
 
+const ROUTE_RESPONSE: MockResponse = {
+  thoughtSummary: "Plotted the safest and cheapest run to Zone A",
+  detailedThought:
+    "Generated three candidate tracks from Kochi harbour to the fishing zone, scored each against the current wave field and wind direction, then picked the one that minimises fuel burn without crossing rough water.",
+  steps: [
+    {
+      id: "s1",
+      label: "Generating candidate tracks",
+      detail: "Three routes plotted from Kochi to Zone A",
+      status: "completed",
+    },
+    {
+      id: "s2",
+      label: "Scoring against wave field",
+      detail: "Route 2 stays under 1.2 m the whole run",
+      status: "completed",
+    },
+    {
+      id: "s3",
+      label: "Estimating fuel and time",
+      detail: "46 km, about 2 hours, 14 litres saved",
+      status: "completed",
+    },
+  ],
+  citations: [
+    {
+      source: "INCOIS",
+      reference: OSF_NODE,
+      url: INCOIS_OSF_URL,
+      issued: "10 Sep 2026, 06:00 IST",
+    },
+    {
+      source: "INCOIS",
+      reference: PFZ_NODE,
+      url: INCOIS_PFZ_URL,
+      issued: "10 Sep 2026, 06:00 IST",
+    },
+  ],
+  chart: {
+    title: "Wave height along each route",
+    unit: "m",
+    variant: "line",
+    subtitle: "Kochi to Zone A",
+    issued: "10 Sep, 06:00 IST",
+    source: "Sample INCOIS ocean state forecast",
+    threshold: 1.5,
+    thresholdLabel: "Comfort limit",
+    periods: [
+      {
+        id: "routes",
+        label: "Routes",
+        times: ["Harbour", "10 km", "20 km", "30 km", "Zone A"],
+        series: [
+          { key: "north", label: "North arc", values: [0.9, 1.3, 1.7, 1.4, 1.1] },
+          { key: "direct", label: "Direct run", values: [0.9, 1.1, 1.2, 1.1, 1.0] },
+        ],
+      },
+    ],
+  },
+  content: `## Best run: **direct track, bearing 247°**
+
+The straight run to Zone A is both the calmest and the cheapest option this morning.
+
+**Why the direct run wins**
+- Waves hold between 0.9 and 1.2 m for the whole 38 km
+- The north arc looks shorter on paper but crosses a 1.7 m swell band at 20 km
+- Wind is behind you on the direct track, which trims fuel further
+
+**Numbers for the trip**
+- Distance 38 km out, about 1 hour 40 minutes at cruise
+- Roughly 14 litres saved versus the northern arc
+- Start after 06:30 to ride the falling tide out of the channel
+
+**When to turn back**
+Be heading in by 13:30. The afternoon build pushes the return leg above your comfort limit after 15:00.`,
+};
+
+const BOUNDARY_RESPONSE: MockResponse = {
+  thoughtSummary: "Checked your position against the international boundary",
+  detailedThought:
+    "Loaded the international maritime boundary line layer from Bhuvan, measured your distance to it along your current bearing, and checked the same track against restricted and protected zone layers.",
+  steps: [
+    {
+      id: "s1",
+      label: "Loading Bhuvan boundary layers",
+      detail: "IMBL and restricted zones refreshed 04:00 IST",
+      status: "completed",
+    },
+    {
+      id: "s2",
+      label: "Measuring distance to the line",
+      detail: "31 km of Indian waters left on your bearing",
+      status: "completed",
+    },
+    {
+      id: "s3",
+      label: "Checking restricted zones on track",
+      detail: "One protected patch crosses the far end",
+      status: "completed",
+    },
+  ],
+  citations: [
+    {
+      source: "Bhuvan",
+      reference: "Bhuvan Maritime Boundary Layer",
+      url: "https://bhuvan.nrsc.gov.in",
+      issued: "10 Sep 2026, 04:00 IST",
+    },
+    {
+      source: "INCOIS",
+      reference: PFZ_NODE,
+      url: INCOIS_PFZ_URL,
+      issued: "10 Sep 2026, 06:00 IST",
+    },
+  ],
+  chart: {
+    title: "Distance to boundary by bearing",
+    unit: "km",
+    variant: "bar",
+    subtitle: "From your position",
+    issued: "10 Sep, 04:00 IST",
+    source: "Sample Bhuvan maritime boundary layer",
+    periods: [
+      {
+        id: "bearings",
+        label: "Bearings",
+        times: ["220°", "247°", "270°", "295°"],
+        series: [
+          { key: "remaining", label: "Indian waters left", values: [22, 31, 27, 18] },
+        ],
+      },
+    ],
+  },
+  content: `## You are inside Indian waters, **31 km from the line**
+
+On your current south-west bearing you have 31 km of Indian waters before the international maritime boundary.
+
+**What matters on this bearing**
+- The boundary sits past the fishing zone, so your normal working grounds are safe
+- The 295° bearing runs out at 18 km. If you prospect north, the margin gets thin
+- One ecologically sensitive patch sits at the far end of the zone. It is marked on the map view
+
+**Standing rule**
+The alert fires when you come within 5 km of the line, so you do not need to watch the numbers yourself. The boundary layer re-validates every morning at 04:00.
+
+**On the protected patch**
+Anchoring inside it carries a fine. The map view draws it in a different colour when you switch to the zones layer.`,
+};
+
+const TIDE_RESPONSE: MockResponse = {
+  thoughtSummary: "Pulled tide and current timings for Kochi harbour",
+  detailedThought:
+    "Read the tide table and surface current prediction for the Kochi node, then worked out the departure and return windows that match your boat and the channel depth.",
+  steps: [
+    {
+      id: "s1",
+      label: "Reading INCOIS tide table",
+      detail: "High water 08:40, low water 15:10",
+      status: "completed",
+    },
+    {
+      id: "s2",
+      label: "Checking surface currents",
+      detail: "Ebb runs 0.6 kts until 14:30",
+      status: "completed",
+    },
+    {
+      id: "s3",
+      label: "Matching windows to your draft",
+      detail: "Channel needs the top half of the tide",
+      status: "completed",
+    },
+  ],
+  citations: [
+    {
+      source: "INCOIS",
+      reference: OSF_NODE,
+      url: INCOIS_OSF_URL,
+      issued: "10 Sep 2026, 06:00 IST",
+    },
+  ],
+  chart: {
+    title: "Tide height through the day",
+    unit: "m",
+    variant: "line",
+    subtitle: "Kochi harbour",
+    issued: "10 Sep, 06:00 IST",
+    source: "Sample INCOIS tide prediction",
+    threshold: 1,
+    thresholdLabel: "Channel minimum",
+    periods: [
+      {
+        id: "today",
+        label: "Today",
+        times: ["06:00", "08:00", "10:00", "12:00", "14:00", "16:00"],
+        series: [
+          { key: "tide", label: "Tide height", values: [0.7, 1.0, 1.2, 0.9, 0.5, 0.3] },
+        ],
+      },
+    ],
+  },
+  content: `## Best window: **leave between 06:30 and 08:00**
+
+High water is 08:40 and the channel carries enough depth through the morning for your draft.
+
+**The day's rhythm**
+- **06:30 to 08:00**: rising tide, deepest channel, easiest exit
+- **08:40**: high water, 1.2 m at the harbour gauge
+- **15:10**: low water, 0.3 m. The channel gets thin for a loaded boat
+- **Ebb current** runs 0.6 kts outbound until 14:30, which slows a return against it
+
+**Why the return matters more**
+Coming back after 14:00 means fighting the ebb on a falling tide. Plan the run home for 13:00 and you ride the last of the water in.
+
+**One caution**
+If you load heavy, shift everything 30 minutes earlier. The channel minimum on your gauge is 1 m.`,
+};
+
+const UNSAFE_RESPONSE: MockResponse = {
+  thoughtSummary: "Two sources agree the window is closed for your boat",
+  detailedThought:
+    "The IMD bulletin and the INCOIS ocean state forecast both point the same way: wind strengthens ahead of a trough and waves cross your safe limit by late afternoon. Checked whether an earlier departure rescues the trip. It does not.",
+  steps: [
+    {
+      id: "s1",
+      label: "Reading IMD coastal bulletin",
+      detail: "Trough approaching, wind warning from 14:00",
+      status: "completed",
+    },
+    {
+      id: "s2",
+      label: "Fetching INCOIS ocean state forecast",
+      detail: "Waves reach 2.4 m by evening, 2.8 m overnight",
+      status: "completed",
+    },
+    {
+      id: "s3",
+      label: "Testing an earlier start",
+      detail: "Even a 04:00 start needs a 16:00 return",
+      status: "completed",
+    },
+    {
+      id: "s4",
+      label: "Computing risk verdict",
+      detail: "Not safe for a mechanized boat today",
+      status: "completed",
+    },
+  ],
+  citations: [
+    {
+      source: "IMD",
+      reference: IMD_BULLETIN,
+      url: IMD_URL,
+      issued: "10 Sep 2026, 05:30 IST",
+    },
+    {
+      source: "INCOIS",
+      reference: OSF_NODE,
+      url: INCOIS_OSF_URL,
+      issued: "10 Sep 2026, 06:00 IST",
+    },
+  ],
+  chart: {
+    title: "Wave height through the day",
+    unit: "metres",
+    variant: "line",
+    subtitle: "Kochi coast",
+    issued: "10 Sep, 06:00 IST",
+    source: "Sample INCOIS ocean state forecast",
+    threshold: 2,
+    thresholdLabel: "Your boat's limit",
+    periods: [
+      {
+        id: "today",
+        label: "Today",
+        times: ["06:00", "09:00", "12:00", "15:00", "18:00", "21:00"],
+        series: [
+          { key: "wave", label: "Wave height", values: [1.4, 1.7, 2.1, 2.4, 2.8, 2.5] },
+          { key: "swell", label: "Swell height", values: [1.0, 1.2, 1.5, 1.7, 2.0, 1.8] },
+        ],
+      },
+    ],
+  },
+  content: `## Verdict: **Not safe today**
+
+A trough is crossing the Kerala coast and the sea crosses your limit before the day is half done.
+
+**What is coming**
+- Wind builds from 20 km/h now to 35 km/h by 15:00
+- Waves sit at 1.4 m this morning but reach 2.4 m by afternoon, 2.8 m overnight
+- Both IMD and INCOIS agree on the timing, which is why the confidence is high
+
+**Why an early start does not fix it**
+Even leaving at 04:00, the working window closes by 11:00 and the return leg lands in building swell. A short trip is possible in theory, but the margin is too thin to recommend.
+
+**What to do instead**
+- Shore day. Mend gear, and check the advisory again at 18:00 when the next forecast lands
+- The trough clears in about 36 hours. Tomorrow evening looks like the next realistic window
+- You will get an alert the moment the warning is lifted`,
+};
+
 interface IntentRule {
   keywords: string[];
   response: MockResponse;
@@ -502,19 +803,35 @@ interface IntentRule {
 
 const INTENT_RULES: IntentRule[] = [
   {
-    keywords: ["safe", "should i go", "go out", "tomorrow", "worth going"],
+    keywords: ["safe", "should i go", "go out", "worth going"],
     response: SAFE_RESPONSE,
+  },
+  {
+    keywords: ["not safe", "tonight", "this evening", "weekend", "monsoon", "rain", "bad weather", "rough today"],
+    response: UNSAFE_RESPONSE,
+  },
+  {
+    keywords: ["route", "navigation", "path", "bearing", "fuel", "how do i get"],
+    response: ROUTE_RESPONSE,
+  },
+  {
+    keywords: ["boundary", "border", "imbl", "international", "restricted", "cross the line", "foreign waters"],
+    response: BOUNDARY_RESPONSE,
+  },
+  {
+    keywords: ["tide", "current", "timing", "when to leave", "window", "departure"],
+    response: TIDE_RESPONSE,
   },
   {
     keywords: ["temperature", "sst", "warm", "thermal", "satellite"],
     response: TEMPERATURE_RESPONSE,
   },
   {
-    keywords: ["fish", "zone", "pfz", "where", "catch", "catching", "spot"],
+    keywords: ["fish", "zone", "pfz", "catch", "catching", "spot"],
     response: ZONE_RESPONSE,
   },
   {
-    keywords: ["wave", "swell", "rough", "sea state", "height"],
+    keywords: ["wave", "swell", "sea state", "height"],
     response: WAVE_RESPONSE,
   },
   {

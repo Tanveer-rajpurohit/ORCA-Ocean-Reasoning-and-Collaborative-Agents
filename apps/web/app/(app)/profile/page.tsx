@@ -102,7 +102,7 @@ export default function ProfilePage() {
     <div className="w-full h-full overflow-y-auto font-intert">
       <div className="max-w-4xl mx-auto px-4 sm:px-8 py-6 sm:py-10">
         {generalError && (
-          <div className="mb-6 p-3.5 rounded-xl bg-red-500/10 border border-red-500/20 text-red-600 dark:text-red-400 text-xs font-medium flex items-center gap-2">
+          <div className="mb-6 p-3.5 rounded-xl bg-danger/10 border border-danger/20 text-danger text-xs font-medium flex items-center gap-2">
             <AlertCircle size={14} />
             <span>{generalError}</span>
           </div>
@@ -130,7 +130,7 @@ export default function ProfilePage() {
 
             <div className="flex items-center gap-3">
               {savedSuccess && (
-                <span className="inline-flex items-center gap-1 text-xs text-emerald-600 dark:text-emerald-400 font-medium animate-in fade-in duration-200">
+                <span className="inline-flex items-center gap-1 text-xs text-success font-medium animate-in fade-in duration-200">
                   <Check size={14} />
                   <span>Profile Updated</span>
                 </span>

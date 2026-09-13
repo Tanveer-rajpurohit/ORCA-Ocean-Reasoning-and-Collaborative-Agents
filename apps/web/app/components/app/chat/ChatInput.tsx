@@ -275,7 +275,7 @@ export function ChatInput({
                 aria-label={isListening ? "Stop listening" : "Speak"}
                 className={`flex items-center gap-1.5 px-3 h-8 rounded-md text-xs font-medium transition-all duration-200 cursor-pointer active:scale-95 ${
                   isListening
-                    ? "bg-red-500 text-white animate-pulse shadow-xs"
+                    ? "bg-danger text-white animate-pulse shadow-xs"
                     : "text-muted hover:text-secondary hover:bg-surface-muted"
                 }`}
               >

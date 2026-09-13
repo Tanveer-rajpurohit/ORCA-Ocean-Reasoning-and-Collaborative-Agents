@@ -19,7 +19,7 @@ export function AuthLayout({ children }: { children: React.ReactNode }) {
             </div>
             <span>Back to home</span>
           </Link>
-          <div className="lg:hidden text-xl font-instrument font-bold text-primary">
+          <div className="lg:hidden text-xl font-instrument font-normal text-primary">
             ORCA
           </div>
         </div>

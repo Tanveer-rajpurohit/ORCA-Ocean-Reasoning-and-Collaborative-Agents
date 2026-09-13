@@ -3,7 +3,6 @@ import "./globals.css";
 import type { Metadata } from "next";
 import { interTight, fontMono, instrumentSerif } from "./fonts";
 import { AuthProvider } from "../context/AuthContext";
-import { ThemeProvider } from "../context/ThemeContext";
 
 export const metadata: Metadata = {
   title: {
@@ -26,9 +25,7 @@ export default function RootLayout({
       className={`${interTight.variable} ${fontMono.variable} ${instrumentSerif.variable}`}
     >
       <body className="font-intert antialiased">
-        <AuthProvider>
-          <ThemeProvider>{children}</ThemeProvider>
-        </AuthProvider>
+        <AuthProvider>{children}</AuthProvider>
       </body>
     </html>
   );

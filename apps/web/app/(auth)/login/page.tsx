@@ -9,7 +9,6 @@ import {
   AuthInput,
   GoogleAuthButton,
 } from "../../components/auth";
-import { ThemeSwitcher } from "../../../components/ui/ThemeSwitcher";
 import { useAuth } from "../../../context/AuthContext";
 
 function LoginForm() {
@@ -60,9 +59,6 @@ function LoginForm() {
 
   return (
     <AuthLayout>
-      <div className="fixed top-6 right-6 z-50">
-        <ThemeSwitcher />
-      </div>
       <AuthFormCard>
         <div className="mb-8">
           <h1 className="font-instrument text-3xl text-primary mb-2">
@@ -74,13 +70,13 @@ function LoginForm() {
         </div>
 
         {resetSuccess && !errorMessage && (
-          <div className="mb-6 p-3.5 rounded-xl bg-green-500/10 border border-green-500/20 text-green-600 dark:text-green-400 text-xs font-medium font-intert">
+          <div className="mb-6 p-3.5 rounded-xl bg-success/10 border border-success/20 text-success text-xs font-medium font-intert">
             Password reset successfully! Please sign in with your new password.
           </div>
         )}
 
         {errorMessage && (
-          <div className="mb-6 p-3.5 rounded-xl bg-red-500/10 border border-red-500/20 text-red-600 dark:text-red-400 text-xs font-medium font-intert">
+          <div className="mb-6 p-3.5 rounded-xl bg-danger/10 border border-danger/20 text-danger text-xs font-medium font-intert">
             {errorMessage}
           </div>
         )}

@@ -111,7 +111,7 @@ export default function ProjectCapabilitiesSection() {
                     index < 2 ? "border-b" : ""
                   } ${index % 2 === 0 ? "sm:border-r" : ""}`}
                 >
-                  <span className="mb-auto font-mono text-4xl sm:text-5xl tracking-[-0.08em] text-border transition-colors duration-200 group-hover:text-brand/35">
+                  <span className="mb-auto font-mono text-4xl sm:text-5xl tracking-[-0.08em] text-muted/40 transition-colors duration-200 group-hover:text-brand/50">
                     {String(index + 1).padStart(2, "0")}
                   </span>
                   <h3 className="mt-8 font-intert text-base font-semibold text-primary">

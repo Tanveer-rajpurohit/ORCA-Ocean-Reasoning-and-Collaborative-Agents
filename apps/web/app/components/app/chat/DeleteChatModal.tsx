@@ -57,7 +57,7 @@ export function DeleteChatModal({
           <button
             type="button"
             onClick={onConfirm}
-            className="px-4 py-2 rounded-lg bg-red-600 hover:bg-red-700 text-white text-xs font-medium transition-all flex items-center gap-2 cursor-pointer shadow-xs"
+            className="px-4 py-2 rounded-lg bg-danger hover:opacity-90 text-white text-xs font-medium transition-all flex items-center gap-2 cursor-pointer shadow-xs"
           >
             <span>Delete Chat</span>
           </button>

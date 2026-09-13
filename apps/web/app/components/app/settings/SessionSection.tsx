@@ -20,7 +20,7 @@ export function SessionSection({ onSignOut }: SessionSectionProps) {
         <button
           type="button"
           onClick={onSignOut}
-          className="inline-flex items-center justify-center gap-2 px-4 py-2 rounded-xl border border-border bg-bg hover:bg-red-500/10 hover:border-red-500/30 hover:text-red-600 text-xs font-medium font-intert transition-colors"
+          className="inline-flex items-center justify-center gap-2 px-4 py-2 rounded-xl border border-border bg-bg hover:bg-danger/10 hover:border-danger/30 hover:text-danger text-xs font-medium font-intert transition-colors"
         >
           <LogOut size={14} />
           <span>Sign Out</span>

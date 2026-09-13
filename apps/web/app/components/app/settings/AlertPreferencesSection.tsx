@@ -64,7 +64,7 @@ export function AlertPreferencesSection() {
         </div>
 
         {savedSuccess && (
-          <span className="inline-flex items-center gap-1 text-xs text-emerald-600 dark:text-emerald-400 font-medium animate-in fade-in duration-200">
+          <span className="inline-flex items-center gap-1 text-xs text-success font-medium animate-in fade-in duration-200">
             <Check size={14} />
             <span>Saved</span>
           </span>

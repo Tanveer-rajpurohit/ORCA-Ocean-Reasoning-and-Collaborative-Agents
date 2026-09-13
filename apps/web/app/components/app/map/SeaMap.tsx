@@ -200,7 +200,7 @@ export function SeaMap({
         type: "line",
         source: "corridor",
         paint: {
-          "line-color": "#3b82f6",
+          "line-color": "#14b8a6",
           "line-width": 6,
           "line-opacity": 0.2,
         },
@@ -210,7 +210,7 @@ export function SeaMap({
         type: "line",
         source: "corridor",
         paint: {
-          "line-color": "#2563eb",
+          "line-color": "#0d6e63",
           "line-width": 2.2,
           "line-dasharray": [4, 3],
         },
@@ -229,7 +229,7 @@ export function SeaMap({
         type: "line",
         source: "imbl",
         paint: {
-          "line-color": "#dc2626",
+          "line-color": "#bf3f35",
           "line-width": 1.8,
           "line-dasharray": [5, 4],
         },
@@ -253,9 +253,9 @@ export function SeaMap({
       new maplibregl.Marker({
         element: element(
           "relative flex items-center justify-center cursor-pointer",
-          `<span class="absolute w-8 h-8 rounded-full bg-blue-500/20 animate-ping pointer-events-none"></span>` +
-          `<span class="absolute w-6 h-6 rounded-full bg-blue-500/25 pointer-events-none"></span>` +
-          `<div class="relative w-4 h-4 rounded-full bg-[#1a73e8] border-[2.5px] border-white shadow-md"></div>`,
+          `<span class="absolute w-8 h-8 rounded-full bg-brand/20 animate-ping pointer-events-none"></span>` +
+          `<span class="absolute w-6 h-6 rounded-full bg-brand/25 pointer-events-none"></span>` +
+          `<div class="relative w-4 h-4 rounded-full bg-[#0d6e63] border-[2.5px] border-white shadow-md"></div>`,
         ),
       })
         .setLngLat(VESSEL_POSITION)
@@ -263,10 +263,10 @@ export function SeaMap({
           new maplibregl.Popup({ offset: 12, closeButton: false }).setHTML(
             `<div style="font-family:inherit;padding:2px 4px">
                <div style="display:flex;align-items:center;gap:6px">
-                 <span style="width:7px;height:7px;border-radius:50%;background:#1a73e8"></span>
-                 <strong style="font-size:12px;color:#0f172a">Your location</strong>
+                 <span style="width:7px;height:7px;border-radius:50%;background:#0d6e63"></span>
+                 <strong style="font-size:12px;color:#14342b">Your location</strong>
                </div>
-               <div style="font-size:11px;color:#64748b;margin-top:3px">
+               <div style="font-size:11px;color:#618176;margin-top:3px">
                  76.04°E, 9.89°N · Inside Indian waters
                </div>
              </div>`,
@@ -279,7 +279,7 @@ export function SeaMap({
       baseMarkersRef.current.push(
         new maplibregl.Marker({
           element: element(
-            "flex items-center gap-1 px-2.5 py-1 rounded-full bg-surface/95 backdrop-blur-sm border border-emerald-600/40 text-[10px] font-bold text-emerald-800 font-intert shadow-xs cursor-pointer",
+            "flex items-center gap-1 px-2.5 py-1 rounded-full bg-surface/95 backdrop-blur-sm border border-brand/40 text-[10px] font-bold text-brand font-intert shadow-xs cursor-pointer",
             `<span>◈</span><span>${zone.name.split(" · ")[0]}</span>`,
           ),
         })
@@ -360,10 +360,10 @@ export function SeaMap({
           "flex flex-col items-center font-intert cursor-pointer",
           `<svg width="22" height="22" viewBox="0 0 24 24" style="transform:rotate(${point.directionDeg}deg)">
              <path d="M12 3 L12 19 M12 3 L7 9 M12 3 L17 9"
-                   stroke="#193E53" stroke-width="2"
+                   stroke="#0d6e63" stroke-width="2"
                    stroke-linecap="round" stroke-linejoin="round" fill="none"/>
            </svg>
-           <span style="font-size:9px;font-weight:700;color:#193E53;background:#fff;padding:1px 4px;border-radius:4px;box-shadow:0 1px 2px rgba(0,0,0,0.1)">${point.speedKmh}</span>`,
+           <span style="font-size:9px;font-weight:700;color:#0d6e63;background:#fff;padding:1px 4px;border-radius:4px;box-shadow:0 1px 2px rgba(0,0,0,0.1)">${point.speedKmh}</span>`,
         );
 
         dataMarkersRef.current.push(

@@ -112,9 +112,9 @@ export function ChatSessionItem({
                 setMenuOpen(false);
                 setDeleteOpen(true);
               }}
-              className="w-full flex items-center gap-2 px-3 py-1.5 text-left text-xs text-red-600 hover:bg-red-500/10 transition-colors cursor-pointer"
+              className="w-full flex items-center gap-2 px-3 py-1.5 text-left text-xs text-danger hover:bg-danger/10 transition-colors cursor-pointer"
             >
-              <Trash2 size={12} className="text-red-500" />
+              <Trash2 size={12} className="text-danger" />
               <span>Delete</span>
             </button>
           </div>

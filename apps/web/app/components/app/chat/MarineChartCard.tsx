@@ -23,7 +23,7 @@ interface MarineChartCardProps {
   className?: string;
 }
 
-const SERIES_COLORS = ["#6085AD", "#338E7F"];
+const SERIES_COLORS = ["var(--brand)", "var(--ocean-2)"];
 
 const AXIS_TICK = { fontSize: 10, fill: "var(--text-muted)" };
 const MARGIN = { top: 12, right: 12, bottom: 0, left: -18 };
@@ -222,7 +222,7 @@ export function MarineChartCard({
         </div>
       ) : (
         <div className="rounded-xl bg-surface border border-border p-2">
-          <div className="h-34 w-full">
+          <div className="h-30 w-full">
             <ChartContainer config={config}>
               {data.variant === "bar" ? (
                 <BarChart data={rows} margin={MARGIN}>
@@ -314,8 +314,8 @@ export function MarineChartCard({
           <span
             className={`inline-flex items-center gap-1 px-2 py-0.5 rounded-md text-[11px] font-medium border ml-auto ${
               exceedsThreshold
-                ? "bg-red-500/10 text-red-600 dark:text-red-400 border-red-500/20"
-                : "bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 border-emerald-500/20"
+                ? "bg-danger/10 text-danger border-danger/20"
+                : "bg-success/10 text-success border-success/20"
             }`}
           >
             <span>{data.thresholdLabel}</span>

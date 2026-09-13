@@ -9,6 +9,8 @@ interface ReportDetailProps {
 }
 
 export function ReportDetail({ report, onBack }: ReportDetailProps) {
+  const hasPhoto = report.attachments.some((a) => a.type === "photo");
+
   return (
     <div className="animate-in fade-in slide-in-from-right-3 duration-200 w-full">
       <button
@@ -20,7 +22,7 @@ export function ReportDetail({ report, onBack }: ReportDetailProps) {
       </button>
 
       <div className="flex items-start justify-between gap-4 mb-3">
-        <h2 className="text-3xl font-instrument text-primary tracking-tight leading-tight">
+        <h2 className="text-2xl sm:text-3xl font-instrument text-primary tracking-tight leading-tight">
           {report.title}
         </h2>
       </div>
@@ -35,38 +37,44 @@ export function ReportDetail({ report, onBack }: ReportDetailProps) {
         </span>
       </div>
 
-      {report.attachments.some((a) => a.type === "photo") && (
-        <div className="w-full aspect-video rounded-2xl bg-ocean-subtle border border-border grid place-items-center mb-8 overflow-hidden">
-          <div className="flex flex-col items-center gap-2 text-ocean">
-            <Camera size={32} strokeWidth={1.5} />
-            <span className="text-sm font-medium font-intert">Photo attached</span>
+      <div
+        className={`grid grid-cols-1 items-start gap-8 mb-8 ${
+          hasPhoto ? "lg:grid-cols-[minmax(0,280px)_minmax(0,1fr)] lg:gap-10" : ""
+        }`}
+      >
+        {hasPhoto && (
+          <div className="w-full aspect-[4/3] lg:aspect-auto lg:h-44 rounded-xl bg-ocean-subtle border border-border grid place-items-center overflow-hidden transition-transform duration-200 hover:scale-[1.02] cursor-pointer">
+            <div className="flex flex-col items-center gap-1.5 text-ocean">
+              <Camera size={22} strokeWidth={1.5} />
+              <span className="text-xs font-medium font-intert">Photo attached</span>
+            </div>
           </div>
-        </div>
-      )}
+        )}
 
-      <div className="grid grid-cols-1 sm:grid-cols-2 gap-x-12 gap-y-0">
-        <div className="py-5 border-b border-border flex items-center justify-between">
-          <span className="inline-flex items-center gap-2 text-sm text-muted font-intert">
-            <Waves size={16} />
-            Sea state
-          </span>
-          <span className="text-sm font-medium text-primary font-intert">{report.seaState}</span>
-        </div>
-        <div className="py-5 border-b border-border flex items-center justify-between">
-          <span className="inline-flex items-center gap-2 text-sm text-muted font-intert">
-            <Wind size={16} />
-            Wind
-          </span>
-          <span className="text-sm font-medium text-primary font-intert">{report.wind}</span>
-        </div>
-        <div className="py-5 border-b border-border flex items-center justify-between sm:col-span-2">
-          <span className="inline-flex items-center gap-2 text-sm text-muted font-intert">
-            <MapPin size={16} />
-            Location
-          </span>
-          <span className="text-sm font-medium text-primary font-intert">
-            {report.location.label} · {report.location.lng.toFixed(2)}°E, {report.location.lat.toFixed(2)}°N
-          </span>
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-x-12 gap-y-0 w-full min-w-0">
+          <div className="py-5 border-b border-border flex items-center justify-between">
+            <span className="inline-flex items-center gap-2 text-sm text-muted font-intert">
+              <Waves size={16} />
+              Sea state
+            </span>
+            <span className="text-sm font-medium text-primary font-intert">{report.seaState}</span>
+          </div>
+          <div className="py-5 border-b border-border flex items-center justify-between">
+            <span className="inline-flex items-center gap-2 text-sm text-muted font-intert">
+              <Wind size={16} />
+              Wind
+            </span>
+            <span className="text-sm font-medium text-primary font-intert">{report.wind}</span>
+          </div>
+          <div className="py-5 border-b border-border flex items-center justify-between sm:col-span-2">
+            <span className="inline-flex items-center gap-2 text-sm text-muted font-intert">
+              <MapPin size={16} />
+              Location
+            </span>
+            <span className="text-sm font-medium text-primary font-intert">
+              {report.location.label} · {report.location.lng.toFixed(2)}°E, {report.location.lat.toFixed(2)}°N
+            </span>
+          </div>
         </div>
       </div>
 

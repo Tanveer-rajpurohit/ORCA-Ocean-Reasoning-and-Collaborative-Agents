@@ -45,17 +45,50 @@ const REPORTERS = [
   "Lal K.",
 ];
 
+const TITLES = [
+  "Rougher than forecast past 5 km",
+  "Debris field near the channel markers",
+  "Good catch by the south markers",
+  "Strong current, watch your fuel",
+  "Squall passed at noon, all clear",
+  "Boats clustering on the south side",
+  "Visibility under 200 m in rain",
+  "Swell building from the west",
+  "Calm stretch along the 20-fathom line",
+  "Nets heavy with mackerel at dawn",
+  "Jellyfish bloom along the shore",
+  "Engine trouble, towed back by Neendakara",
+  "Water warmer than last week",
+  "Dolphins working bait south of Vypin",
+  "Net torn on submerged rope",
+  "Birds diving 8 km out, fish below",
+  "Unmarked buoy drifting off Cherai",
+  "Choppy crossing at the bar mouth",
+  "Clean water line at 12 km",
+  "Early return, wind picked up fast",
+];
+
 const NOTES = [
   "Water much rougher than the forecast said. Heading back early.",
-  "Saw a large debris field, mostly logs. Careful if you go past 5km.",
-  "Good catch near the channel markers this morning.",
-  "Current is stronger than usual, watch your fuel.",
-  "Squall passed through quickly around noon, all clear now.",
-  "Fishing boats clustering near the south side, fish must be there.",
-  "Visibility dropped to under 200m in the rain.",
-  undefined,
-  undefined,
-  undefined,
+  "Mostly logs floating past 5 km. Careful with your propeller.",
+  "Two hours by the markers and the hold was already half full.",
+  "Current running against the ebb. Took extra fuel to get back.",
+  "Ten minutes of hard rain and wind, then it cleared completely.",
+  "Eight boats working the same patch. Fish must be holding there.",
+  "Rain cut visibility hard. Kept the horn going the whole way in.",
+  "Swell turning from the west around noon. Earlier is better.",
+  "Flat water on the 20-fathom line all morning. Rare for this month.",
+  "Best mackerel run this season. Back by nine with a full hold.",
+  "Thick jellyfish from the harbour mouth to about 3 km out.",
+  "Fuel line choked mid-trip. Another boat towed us in, all safe.",
+  "Water feels two degrees warmer than last week near the shore.",
+  "A big pod pushing bait fish. Tuna likely close behind them.",
+  "Caught something heavy and synthetic. Net needs a patch.",
+  "Terns diving in one spot for an hour. Stopped and filled the box.",
+  "White buoy with no light, drifting fast. Reported to the harbour.",
+  "Bar mouth was choppy at half tide. Waited forty minutes to cross.",
+  "Clear blue water starts sharp at 12 km. Good line to work.",
+  "Wind jumped from calm to blustery in fifteen minutes. Turned back.",
 ];
 
 function buildMockReports(): ReportSubmission[] {
@@ -64,7 +97,7 @@ function buildMockReports(): ReportSubmission[] {
     if (!loc) throw new Error("location missing");
     return {
       id: `rep-${i + 1}`,
-      title: `Sea report from ${loc.label}`,
+      title: TITLES[i % TITLES.length] ?? `Sea report from ${loc.label}`,
       reporter: REPORTERS[i % REPORTERS.length] ?? "Anonymous",
       seaState: SEA_STATES[i % SEA_STATES.length] ?? "Slight, 0.8m",
       wind: WINDS[i % WINDS.length] ?? "SW 10 knots",

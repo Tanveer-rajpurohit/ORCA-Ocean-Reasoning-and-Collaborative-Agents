@@ -44,7 +44,7 @@ const HERO_METRICS: Record<
     unit: "m",
     label: "Significant wave height",
     badge: "Within safe range",
-    badgeColor: "bg-emerald-50 text-emerald-700 border-emerald-200",
+    badgeColor: "bg-success/10 text-success border-success/20",
     detail: "Operating within safe boat limit",
   },
   wind: {
@@ -52,7 +52,7 @@ const HERO_METRICS: Record<
     unit: "km/h",
     label: "Coastal surface wind",
     badge: "Gentle breeze · 6.5 kts",
-    badgeColor: "bg-emerald-50 text-emerald-700 border-emerald-200",
+    badgeColor: "bg-success/10 text-success border-success/20",
     detail: "North-west coastal drift",
   },
   temperature: {
@@ -60,7 +60,7 @@ const HERO_METRICS: Record<
     unit: "°C",
     label: "Sea surface temperature",
     badge: "+0.8°C thermal anomaly",
-    badgeColor: "bg-blue-50 text-blue-700 border-blue-200",
+    badgeColor: "bg-brand/8 text-brand border-brand/20",
     detail: "Pelagic front along 20-fathom contour",
   },
   zones: {
@@ -68,7 +68,7 @@ const HERO_METRICS: Record<
     unit: "zones",
     label: "Potential fishing zones",
     badge: "INCOIS verified",
-    badgeColor: "bg-emerald-50 text-emerald-700 border-emerald-200",
+    badgeColor: "bg-success/10 text-success border-success/20",
     detail: "Pelagic shoals at 38 km and 52 km",
   },
 };
@@ -166,7 +166,7 @@ export function MapSideList({ mode, onChangeMode }: MapSideListProps) {
                 className={`font-mono text-base tracking-tight w-6 shrink-0 transition-colors duration-200 ${
                   isActive
                     ? "text-brand font-semibold"
-                    : "text-muted/60 group-hover:text-brand/60"
+                    : "text-muted group-hover:text-brand/70"
                 }`}
               >
                 {String(index + 1).padStart(2, "0")}
@@ -223,7 +223,7 @@ export function MapSideList({ mode, onChangeMode }: MapSideListProps) {
 
           <div className="pt-1.5 mt-1 border-t border-dashed border-border/70 flex items-baseline justify-between gap-2 text-[11.5px]">
             <span className="text-muted font-intert">Boundary</span>
-            <span className="text-emerald-700 font-intert font-medium text-right shrink-0">
+            <span className="text-success font-intert font-medium text-right shrink-0">
               Inside Indian waters
             </span>
           </div>

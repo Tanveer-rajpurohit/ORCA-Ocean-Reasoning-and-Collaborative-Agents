@@ -13,7 +13,7 @@ export function HazardRow({ hazard, index }: HazardRowProps) {
   return (
     <div className="group w-full flex items-center gap-4 py-4 px-2 rounded-lg transition-all duration-200 border-b border-border last:border-b-0 hover:bg-surface-muted cursor-pointer">
       <span className={`font-mono text-sm tracking-[-0.06em] w-6 shrink-0 transition-colors ${
-        isDanger ? "text-danger" : "text-border group-hover:text-brand/50"
+        isDanger ? "text-danger" : "text-muted group-hover:text-brand"
       }`}>
         {String(index + 1).padStart(2, "0")}
       </span>

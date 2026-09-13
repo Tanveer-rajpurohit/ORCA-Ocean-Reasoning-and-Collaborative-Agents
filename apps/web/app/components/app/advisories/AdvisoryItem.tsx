@@ -13,7 +13,7 @@ export function AdvisoryItem({ advisory, index }: AdvisoryItemProps) {
   return (
     <div className="group w-full py-4 px-3 -mx-3 rounded-lg transition-colors duration-150 border-b border-border last:border-b-0 hover:bg-surface-muted/60">
       <div className="flex items-center gap-3">
-        <span className="font-mono text-base tracking-[-0.06em] w-8 shrink-0 text-border group-hover:text-brand/35 transition-colors">
+        <span className="font-mono text-base tracking-[-0.06em] w-8 shrink-0 text-muted group-hover:text-brand transition-colors">
           {String(index + 1).padStart(2, "0")}
         </span>
         <span

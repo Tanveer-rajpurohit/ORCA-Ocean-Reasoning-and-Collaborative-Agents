@@ -91,7 +91,7 @@ export default function RegisterPage() {
         </div>
 
         {errorMessage && (
-          <div className="mb-6 p-3.5 rounded-xl bg-red-500/10 border border-red-500/20 text-red-600 dark:text-red-400 text-xs font-medium font-intert">
+          <div className="mb-6 p-3.5 rounded-xl bg-danger/10 border border-danger/20 text-danger text-xs font-medium font-intert">
             {errorMessage}
           </div>
         )}
